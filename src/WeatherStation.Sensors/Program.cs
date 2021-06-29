@@ -30,7 +30,7 @@ namespace WeatherStation.Sensors
                         .SetBasePath(Directory.GetCurrentDirectory())
                         .AddJsonFile("config/appsettings.json", optional: false, reloadOnChange: false)
                         .AddEnvironmentVariables()
-                        .Build();                    
+                        .Build();
                     var appSettings = configuration.GetSection("AppSettings").Get<AppSettings>() ?? new AppSettings();
                     //Get EnvironmentVariables. Read settings for RabbitMQ
                     SettingsHelper.ReadSettingsforRabbitMQ(configuration, appSettings);

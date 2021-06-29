@@ -8,12 +8,10 @@ namespace WeatherStation.Sensors.Services
 {
     public interface ISendData
     {
+        public bool IsOpen { get; }
         public void Connect();
-        public Task ConnectAsync();
         public void Close();
-        public Task CloseAsync();
-        public void Send(IDictionary<string, object> message);
-        public void Send(string name, object value);
-        public Task SendAsync();
+        public bool Send(IDictionary<string, object> message);
+        public bool Send(string name, object value);
     }
 }

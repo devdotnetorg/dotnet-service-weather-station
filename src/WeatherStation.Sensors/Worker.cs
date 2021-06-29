@@ -29,30 +29,46 @@ namespace WeatherStation.Sensors
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-        {            
-            _sendData.Connect();
-            //
+        {
+            while (!_sendData.IsOpen)
+            {
+                _sendData.Connect();                
+                if(!_sendData.IsOpen) _logger.LogInformation("Переподключение через 5 секунд.");
+                await Task.Delay(5000, stoppingToken);
+                if (stoppingToken.IsCancellationRequested) return;
+            }
             int TaskDelay = _appSettings.Sensors.ReadEvery * 1000;
             //Event
             _readSensorsServices.ButtonChanged += button_OnChange;
-            //
             while (!stoppingToken.IsCancellationRequested)
             {
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 //Read sensors
                 var values=_readSensorsServices.ReadAll();
-                _logger.LogDebug($"Значения датчиков: {AppHelper.DictionaryToString(values)}");                                
-                _sendData.Send(values);                         
-                //
+                _logger.LogDebug($"Значения датчиков: {AppHelper.DictionaryToString(values)}");
+                try
+                {
+                    _sendData.Send(values);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError("Показания датчиков не были отправленны на сервер", ex);
+                }
                 await Task.Delay(TaskDelay, stoppingToken);
             }
-            //
             _sendData.Close();
         }
         void button_OnChange(object sender, EventArgs e)
         {
-            var obj = (ButtonEventArgs)e;                                 
-            _sendData.Send("onButton", obj._Name);
+            var obj = (ButtonEventArgs)e;
+            try
+            {
+                _sendData.Send("onButton", obj._Name);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Показания датчиков не были отправленны на сервер", ex);
+            }            
         }
     }
 }
