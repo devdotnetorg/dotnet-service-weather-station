@@ -30,6 +30,20 @@ namespace WeatherStation.Sensors
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            try
+            {
+                _readSensorsServices.Init();
+            }
+            catch(Exception ex)
+            {
+                //Остановка приложения
+                _logger.LogError($"Инициализация датчиков завершилась с ошибкой: {ex.Message}", ex);
+                _logger.LogInformation("Сервис будет остановлен");
+
+                
+
+                Environment.Exit(-2);                    
+            }
             while (!_sendData.IsOpen)
             {
                 _sendData.Connect();                
@@ -44,7 +58,7 @@ namespace WeatherStation.Sensors
             {
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 //Read sensors
-                var values=_readSensorsServices.ReadAll();
+                var values = await _readSensorsServices.ReadAllAsync(stoppingToken);                
                 _logger.LogDebug($"Значения датчиков: {AppHelper.DictionaryToString(values)}");
                 try
                 {
@@ -57,6 +71,7 @@ namespace WeatherStation.Sensors
                 await Task.Delay(TaskDelay, stoppingToken);
             }
             _sendData.Close();
+            _readSensorsServices.Dispose();
         }
         void button_OnChange(object sender, EventArgs e)
         {

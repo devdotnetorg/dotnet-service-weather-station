@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using WeatherStation.Sensors.Settings;
 
@@ -35,7 +36,7 @@ namespace WeatherStation.Sensors.Services
         {
             ButtonChanged?.Invoke(this, e);
         }
-        public Task<Dictionary<string, object>> ReadAllAsync()
+        public Task<Dictionary<string, object>> ReadAllAsync(CancellationToken stoppingToken)
         {
             return Task.Run(() =>
             {
@@ -49,6 +50,16 @@ namespace WeatherStation.Sensors.Services
                 //
                 return dictionary;
             });
+        }
+
+        public void Dispose()
+        {
+            _logger.LogInformation("Sensors Dispose");
+        }
+
+        public void Init()
+        {
+            _logger.LogInformation("Sensors Init");
         }
     }
 }

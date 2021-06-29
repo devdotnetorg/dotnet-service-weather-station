@@ -11,14 +11,17 @@ using System.Threading.Tasks;
 using WeatherStation.Sensors.Settings;
 using WeatherStation.Sensors.Services;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting.Internal;
 
 namespace WeatherStation.Sensors
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
+            //new
+            //CreateHostBuilder(args).UseConsoleLifetime().Build().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -38,7 +41,7 @@ namespace WeatherStation.Sensors
                     SettingsHelper.ValidateAppSettings(appSettings);
                     if(appSettings.MustbeStopped)
                     {
-                        //Остановка сервиса
+                        //Остановка приложения
                         Console.WriteLine("Сервис будет остановлен.");
                         Environment.Exit(-1);
                     }
@@ -48,11 +51,20 @@ namespace WeatherStation.Sensors
                     services.AddScoped(sp => sp.GetService<SingletonAppSettings>().appSettings);
                     //next                    
                     //Добавление сервиса чтения датчиков
-                    services.AddScoped<IReadSensorsServices, ReadSensorsFakeServices>();
+                    //Fake
+                    //services.AddScoped<IReadSensorsServices, ReadSensorsFakeServices>();
+                    //Real
+                    services.AddScoped<IReadSensorsServices, ReadSensorsServices>();
                     //Добавление сервиса отправки данных
                     services.AddScoped<ISendData, SendDataToRabbitMQ>();
                     //Main Worker
                     services.AddHostedService<Worker>();
                 });
+        private static void OnProcessExit(object sender, EventArgs e)
+        {
+            
+                 
+            
+        }
     }
 }
