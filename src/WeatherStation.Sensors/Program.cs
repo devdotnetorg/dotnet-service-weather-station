@@ -1,4 +1,4 @@
-using Microsoft.Extensions.Configuration;
+п»їusing Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WeatherStation.Sensors.Helpers;
@@ -41,8 +41,8 @@ namespace WeatherStation.Sensors
                     SettingsHelper.ValidateAppSettings(appSettings);
                     if(appSettings.MustbeStopped)
                     {
-                        //Остановка приложения
-                        Console.WriteLine("Сервис будет остановлен.");
+                        //РћСЃС‚Р°РЅРѕРІРєР° РїСЂРёР»РѕР¶РµРЅРёСЏ
+                        Console.WriteLine("РЎРµСЂРІРёСЃ Р±СѓРґРµС‚ РѕСЃС‚Р°РЅРѕРІР»РµРЅ.");
                         Environment.Exit(-1);
                     }
                     SingletonAppSettings singletonAppSettings = SingletonAppSettings.Instance;
@@ -50,21 +50,15 @@ namespace WeatherStation.Sensors
                     services.AddSingleton(singletonAppSettings);
                     services.AddScoped(sp => sp.GetService<SingletonAppSettings>().appSettings);
                     //next                    
-                    //Добавление сервиса чтения датчиков
+                    //Р”РѕР±Р°РІР»РµРЅРёРµ СЃРµСЂРІРёСЃР° С‡С‚РµРЅРёСЏ РґР°С‚С‡РёРєРѕРІ
                     //Fake
                     //services.AddScoped<IReadSensorsServices, ReadSensorsFakeServices>();
                     //Real
                     services.AddScoped<IReadSensorsServices, ReadSensorsServices>();
-                    //Добавление сервиса отправки данных
+                    //Р”РѕР±Р°РІР»РµРЅРёРµ СЃРµСЂРІРёСЃР° РѕС‚РїСЂР°РІРєРё РґР°РЅРЅС‹С…
                     services.AddScoped<ISendData, SendDataToRabbitMQ>();
                     //Main Worker
                     services.AddHostedService<Worker>();
                 });
-        private static void OnProcessExit(object sender, EventArgs e)
-        {
-            
-                 
-            
-        }
     }
 }

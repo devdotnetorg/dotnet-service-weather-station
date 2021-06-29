@@ -1,4 +1,4 @@
-using Microsoft.Extensions.Configuration;
+п»їusing Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -36,9 +36,9 @@ namespace WeatherStation.Sensors
             }
             catch(Exception ex)
             {
-                //Остановка приложения
-                _logger.LogError($"Инициализация датчиков завершилась с ошибкой: {ex.Message}", ex);
-                _logger.LogInformation("Сервис будет остановлен");
+                //РћСЃС‚Р°РЅРѕРІРєР° РїСЂРёР»РѕР¶РµРЅРёСЏ
+                _logger.LogError($"РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РґР°С‚С‡РёРєРѕРІ Р·Р°РІРµСЂС€РёР»Р°СЃСЊ СЃ РѕС€РёР±РєРѕР№: {ex.Message}", ex);
+                _logger.LogInformation("РЎРµСЂРІРёСЃ Р±СѓРґРµС‚ РѕСЃС‚Р°РЅРѕРІР»РµРЅ");
 
                 
 
@@ -47,7 +47,7 @@ namespace WeatherStation.Sensors
             while (!_sendData.IsOpen)
             {
                 _sendData.Connect();                
-                if(!_sendData.IsOpen) _logger.LogInformation("Переподключение через 5 секунд.");
+                if(!_sendData.IsOpen) _logger.LogInformation("РџРµСЂРµРїРѕРґРєР»СЋС‡РµРЅРёРµ С‡РµСЂРµР· 5 СЃРµРєСѓРЅРґ.");
                 await Task.Delay(5000, stoppingToken);
                 if (stoppingToken.IsCancellationRequested) return;
             }
@@ -59,14 +59,14 @@ namespace WeatherStation.Sensors
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 //Read sensors
                 var values = await _readSensorsServices.ReadAllAsync(stoppingToken);                
-                _logger.LogDebug($"Значения датчиков: {AppHelper.DictionaryToString(values)}");
+                _logger.LogDebug($"Р—РЅР°С‡РµРЅРёСЏ РґР°С‚С‡РёРєРѕРІ: {AppHelper.DictionaryToString(values)}");
                 try
                 {
                     _sendData.Send(values);
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError("Показания датчиков не были отправленны на сервер", ex);
+                    _logger.LogError("РџРѕРєР°Р·Р°РЅРёСЏ РґР°С‚С‡РёРєРѕРІ РЅРµ Р±С‹Р»Рё РѕС‚РїСЂР°РІР»РµРЅРЅС‹ РЅР° СЃРµСЂРІРµСЂ", ex);
                 }
                 await Task.Delay(TaskDelay, stoppingToken);
             }
@@ -82,7 +82,7 @@ namespace WeatherStation.Sensors
             }
             catch (Exception ex)
             {
-                _logger.LogError("Показания датчиков не были отправленны на сервер", ex);
+                _logger.LogError("РџРѕРєР°Р·Р°РЅРёСЏ РґР°С‚С‡РёРєРѕРІ РЅРµ Р±С‹Р»Рё РѕС‚РїСЂР°РІР»РµРЅРЅС‹ РЅР° СЃРµСЂРІРµСЂ", ex);
             }            
         }
     }

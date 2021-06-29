@@ -1,0 +1,32 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": ".NET Core Remote Launch - Framework Dependent (console)",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "dotnet",
+            "args": ["./WeatherStation.Sensors.dll"],
+            "cwd": "~/WeatherStation.Sensors",
+            "stopAtEntry": false,
+            "console": "internalConsole",
+            "pipeTransport": {
+                "pipeCwd": "${workspaceRoot}",
+                "pipeProgram": "C:\\RemoteCode\\putty\\PLINK.EXE",
+                "pipeArgs": [
+                    "-i",
+                    "C:\\RemoteCode\\keys\\id_rsa_bpim64.ppk",
+                    "root@192.168.43.208"
+                ],
+                "debuggerPath": "/usr/share/vsdbg/vsdbg --engineLogging=/var/log/vsdbg.log"
+            },            
+            "preLaunchTask": "copy-to-device", 
+        },        
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:pickProcess}"
+        }
+    ]
+}

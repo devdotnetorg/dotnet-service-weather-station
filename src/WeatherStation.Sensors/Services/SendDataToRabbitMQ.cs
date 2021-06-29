@@ -44,10 +44,10 @@ namespace WeatherStation.Sensors.Services
                     HostName = _appSettings.RabbitMQ.HostName,
                     ClientProvidedName = _appSettings.RabbitMQ.ClientProvidedName,
                     AutomaticRecoveryEnabled = true,
-                    //Heartbeat = 30 sec
-                    RequestedHeartbeat = TimeSpan.FromSeconds(30),                
+                    //Heartbeat = 20 sec
+                    RequestedHeartbeat = TimeSpan.FromSeconds(20),                
                     NetworkRecoveryInterval = TimeSpan.FromSeconds(5),
-                    RequestedConnectionTimeout = TimeSpan.FromSeconds(20)
+                    RequestedConnectionTimeout = TimeSpan.FromSeconds(50)
                 };
                 _logger.LogInformation("Подключение к серверу RabbitMQ ...");
                 _conn = factory.CreateConnection();

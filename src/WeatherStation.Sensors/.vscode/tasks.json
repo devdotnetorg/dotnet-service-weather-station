@@ -1,0 +1,73 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/WeatherStation.Sensors.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "publish",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                "${workspaceFolder}/WeatherStation.Sensors.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "watch",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "run",
+                "${workspaceFolder}/WeatherStation.Sensors.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build-linux-arm",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/WeatherStation.Sensors.csproj",
+                "--configuration","Debug",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+                "-r","linux-arm64"                
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "copy-to-device",
+            "dependsOn":"build-linux-arm",
+            "command": "C:\\RemoteCode\\cwrsync\\rsync.exe",
+            "type": "process",
+            "args": [
+                "--log-file=rsync.log",
+                "--progress",
+                "-avz" ,
+                "-e",
+                "C:\\RemoteCode\\cwrsync\\ssh.exe -i C:\\RemoteCode\\keys\\id_rsa_bpim64 -o 'StrictHostKeyChecking no'",
+                "/cygdrive/d/Anton/Projects/dotnet-service-weather-station/WeatherStation.Sensors/bin/Debug/net5.0/linux-arm64/",
+                "root@192.168.43.208:/root/WeatherStation.Sensors"
+            ],
+             "problemMatcher": "$msCompile"
+        }
+    ]
+}
+ 

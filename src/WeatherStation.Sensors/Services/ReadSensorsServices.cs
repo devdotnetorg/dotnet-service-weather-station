@@ -38,22 +38,24 @@ namespace WeatherStation.Sensors.Services
             var drvGpio = new LibGpiodDriver(_appSettings.Sensors.GPIOCHIP.Value);
             controller = new GpioController(PinNumberingScheme.Logical, drvGpio);
             //LED
-            if (_appSettings.Sensors.pinLED_active_low.Value) ledPinValue = !ledPinValue;
-            controller.OpenPin(_appSettings.Sensors.pinLED.Value, PinMode.Output);            
-            controller.Write(_appSettings.Sensors.pinLED.Value, ledPinValue); //LED OFF
+            controller.OpenPin(_appSettings.Sensors.pinLED.Value, PinMode.Output); 
+            controller.Write(_appSettings.Sensors.pinLED.Value,(ledPinValue==
+            (_appSettings.Sensors.pinLED_active_low.Value==false))); //LED OFF
             //BUTTON
             controller.OpenPin(_appSettings.Sensors.pinBUTTON.Value, PinMode.Input);
             //При нажатие включается LED
             controller.RegisterCallbackForPinValueChangedEvent(_appSettings.Sensors.pinBUTTON.Value, PinEventTypes.Rising, (o, e) =>
             {
                 ledPinValue = !ledPinValue;
-                controller.Write(_appSettings.Sensors.pinLED.Value, ledPinValue);                
+                controller.Write(_appSettings.Sensors.pinLED.Value, (ledPinValue==
+            (_appSettings.Sensors.pinLED_active_low.Value==false)));                
             });
             //При отпускание срабатывает событие и выключается LED
             controller.RegisterCallbackForPinValueChangedEvent(_appSettings.Sensors.pinBUTTON.Value, PinEventTypes.Falling, (o, e) =>
             {
                 ledPinValue = !ledPinValue;
-                controller.Write(_appSettings.Sensors.pinLED.Value, ledPinValue);
+                controller.Write(_appSettings.Sensors.pinLED.Value, (ledPinValue==
+            (_appSettings.Sensors.pinLED_active_low.Value==false)));
                 //Срабатывание события
                 OnButtonChanged(new ButtonEventArgs("PressButton1"));
             });
@@ -69,6 +71,9 @@ namespace WeatherStation.Sensors.Services
                 HumiditySampling = Sampling.UltraHighResolution,
                 FilterMode = Bmx280FilteringMode.X2
             };
+            //DS18B20
+             
+
             //
             _logger.LogInformation("Инициализация датчиков успешно закончена");
         }
@@ -90,9 +95,9 @@ namespace WeatherStation.Sensors.Services
                 var readResult = bme280.ReadAsync().Result;
                 var dictionary = new Dictionary<string, object>();
                 //Read data
-                dictionary.Add("HomeTemperature", readResult.Temperature?.DegreesCelsius);
-                dictionary.Add("HomePressure", readResult.Pressure?.Hectopascals);
-                dictionary.Add("HomeHumidity", readResult.Humidity?.Percent);
+                dictionary.Add("HomeTemperature", Math.Round((double)readResult.Temperature?.DegreesCelsius,2,MidpointRounding.AwayFromZero));
+                dictionary.Add("HomePressure", Math.Round((double)(readResult.Pressure?.Hectopascals*100),0,MidpointRounding.AwayFromZero));
+                dictionary.Add("HomeHumidity", Math.Round((double)readResult.Humidity?.Percent,0,MidpointRounding.AwayFromZero));
                 return dictionary;
             });  
         }
@@ -102,6 +107,10 @@ namespace WeatherStation.Sensors.Services
             controller.Dispose();
             bme280.Dispose();
             i2cDevice.Dispose();                    
-        }       
+        }
+        void DDD()
+        {
+           
+        }
     }
 }
