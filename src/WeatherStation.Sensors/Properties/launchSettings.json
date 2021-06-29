@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "Sensors.WeatherStation": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development",
+        "RabbitMQPassword": "Dprgwy43",
+        "RabbitMQUserName": "user-sensors"
+      },
+      "dotnetRunMessages": "true"
+    }
+  }
+}
