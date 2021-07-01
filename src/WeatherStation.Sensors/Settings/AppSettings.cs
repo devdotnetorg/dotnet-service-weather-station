@@ -9,6 +9,7 @@ namespace WeatherStation.Sensors.Settings
     /// </summary>
     public class AppSettings : IValidatableObject
     {
+        public bool MustbeStopped => _MustbeStopped;
         private bool _MustbeStopped { get; set; }
         public SensorsSettings Sensors { get; set; }
         public RabbitMQSettings RabbitMQ { get; set; }

@@ -90,8 +90,8 @@ namespace WeatherStation.Sensors.Services
                             controller.IsPinModeSupported(_appSettings.Sensors.pinLED.Value, PinMode.Output))
                             {
                                 controller.OpenPin(_appSettings.Sensors.pinLED.Value, PinMode.Output);
-                                controller.Write(_appSettings.Sensors.pinLED.Value, (ledPinValue ==
-                                (_appSettings.Sensors.pinLED_active_low == false))); //LED OFF                                
+                                controller.Write(_appSettings.Sensors.pinLED.Value, ledPinValue ==
+                                (_appSettings.Sensors.pinLED_active_low == false)); //LED OFF                                
                                 isLEDAvailable = true;
                                 _logger.LogInformation("LED успешно инициализирован");
                     }
@@ -165,7 +165,6 @@ namespace WeatherStation.Sensors.Services
                 return dictionary;
             });  
         }
-
         public void Dispose()
         {
             if (bme280 != null) bme280.Dispose();

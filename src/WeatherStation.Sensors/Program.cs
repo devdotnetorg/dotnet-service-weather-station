@@ -39,6 +39,12 @@ namespace WeatherStation.Sensors
                     SettingsHelper.ReadSettingsforRabbitMQ(configuration, appSettings);
                     //Validate            
                     SettingsHelper.ValidateAppSettings(appSettings);
+                    if (appSettings.MustbeStopped)
+                    {
+                        //Остановка приложения
+                        Console.WriteLine("Сервис будет остановлен.");
+                        Environment.Exit(-1);
+                    }
                     SingletonAppSettings singletonAppSettings = SingletonAppSettings.Instance;
                     singletonAppSettings.appSettings = appSettings;
                     services.AddSingleton(singletonAppSettings);
