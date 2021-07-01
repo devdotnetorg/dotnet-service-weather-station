@@ -18,11 +18,10 @@ set -e
 
 echo "Start BUILDX"
 
-#:amd64
-docker buildx build --platform linux/amd64 -f Dockerfile.alpine -t devdotnetorg/dotnet-gpioset:amd64 . --push
+#Dockerfile.WS.Sensors
 #:aarch64
-docker buildx build --platform linux/arm64 -f Dockerfile.alpine -t devdotnetorg/dotnet-gpioset:aarch64 . --push
+docker buildx build --platform linux/arm64 -f Dockerfile.WS.Sensors.alpine -t devdotnetorg/dotnet-ws-sensors:aarch64 . --push
 #:latest all platform
-docker buildx build --platform linux/arm64,linux/amd64 -f Dockerfile.alpine -t devdotnetorg/dotnet-gpioset:latest . --push
+docker buildx build --platform linux/arm64 -f Dockerfile.WS.Sensors.alpine -t devdotnetorg/dotnet-ws-sensors:latest . --push
 
 echo "BUILDX END"

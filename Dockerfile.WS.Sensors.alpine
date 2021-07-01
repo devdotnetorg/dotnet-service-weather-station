@@ -7,14 +7,14 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0-focal AS build
 WORKDIR /src
-COPY ["src/dotnet-gpioset.csproj", "."]
-RUN dotnet restore "./dotnet-gpioset.csproj"
-COPY /src/. .
+COPY ["src/WeatherStation.Sensors/WeatherStation.Sensors.csproj", "."]
+RUN dotnet restore "./WeatherStation.Sensors.csproj"
+COPY /src/WeatherStation.Sensors/. .
 WORKDIR "/src/."
-RUN dotnet build "dotnet-gpioset.csproj" -c Release -o /app/build
+RUN dotnet build "WeatherStation.Sensors.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "dotnet-gpioset.csproj" -c Release -o /app/publish
+RUN dotnet publish "WeatherStation.Sensors.csproj" -c Release -o /app/publish
 
 FROM base AS final
 MAINTAINER DevDotNet.Org <anton@devdotnet.org>
@@ -31,4 +31,4 @@ RUN apk update \
 	&& apk del zip \
 	&& rm /artifacts.zip
 
-ENTRYPOINT ["dotnet", "dotnet-gpioset.dll"]
+ENTRYPOINT ["dotnet", "WeatherStation.Sensors.dll"]
