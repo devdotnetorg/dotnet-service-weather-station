@@ -45,7 +45,7 @@ namespace WeatherStation.Sensors
                 if (stoppingToken.IsCancellationRequested) return;
             }
             int TaskDelay = _appSettings.Sensors.ReadEvery * 1000;
-            //Event
+            //Add event
             _readSensorsServices.ButtonChanged += button_OnChange;
             while (!stoppingToken.IsCancellationRequested)
             {
@@ -75,7 +75,7 @@ namespace WeatherStation.Sensors
             }
             catch (Exception ex)
             {
-                _logger.LogError("Показания датчиков не были отправленны на сервер", ex);
+                _logger.LogError("Событие от датчика не было отправленно на сервер", ex);
             }            
         }
     }

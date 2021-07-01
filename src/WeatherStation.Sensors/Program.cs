@@ -3,15 +3,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WeatherStation.Sensors.Helpers;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using WeatherStation.Sensors.Settings;
 using WeatherStation.Sensors.Services;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Hosting.Internal;
 
 namespace WeatherStation.Sensors
 {
@@ -20,8 +15,6 @@ namespace WeatherStation.Sensors
         public static async Task Main(string[] args)
         {
             await CreateHostBuilder(args).Build().RunAsync();
-            //new
-            //CreateHostBuilder(args).UseConsoleLifetime().Build().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -45,11 +38,11 @@ namespace WeatherStation.Sensors
                         Console.WriteLine("Сервис будет остановлен.");
                         Environment.Exit(-1);
                     }
+                    //Настройки приложения
                     SingletonAppSettings singletonAppSettings = SingletonAppSettings.Instance;
                     singletonAppSettings.appSettings = appSettings;
                     services.AddSingleton(singletonAppSettings);
-                    services.AddScoped(sp => sp.GetService<SingletonAppSettings>().appSettings);
-                    //next                    
+                    services.AddScoped(sp => sp.GetService<SingletonAppSettings>().appSettings);               
                     //Добавление сервиса чтения датчиков
                     //Fake
                     //services.AddScoped<IReadSensorsServices, ReadSensorsFakeServices>();

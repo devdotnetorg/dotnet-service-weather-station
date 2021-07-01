@@ -8,7 +8,6 @@ using System.Device.Gpio;
 using System.Device.Gpio.Drivers;
 using System.Device.I2c;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using WeatherStation.Sensors.Settings;
@@ -22,7 +21,6 @@ namespace WeatherStation.Sensors.Services
         private readonly AppSettings _appSettings;
         public event EventHandler ButtonChanged;
         private static bool isLEDAvailable;
-        //
         private static GpioController controller;
         private static I2cDevice i2cDevice;
         private static Bme280 bme280;
@@ -102,7 +100,7 @@ namespace WeatherStation.Sensors.Services
                         controller.OpenPin(_appSettings.Sensors.pinBUTTON.Value, PinMode.Input);
                         if(isLEDAvailable)
                         {
-                            //При нажатие включается LED
+                            //При нажатии включается LED
                             controller.RegisterCallbackForPinValueChangedEvent(_appSettings.Sensors.pinBUTTON.Value, PinEventTypes.Rising, (o, e) =>
                             {
                                 ledPinValue = !ledPinValue;
@@ -110,7 +108,7 @@ namespace WeatherStation.Sensors.Services
                             (_appSettings.Sensors.pinLED_active_low == false)));
                             });
                         }
-                        //При отпускание срабатывает событие и выключается LED
+                        //При отпускании срабатывает событие и выключается LED
                         controller.RegisterCallbackForPinValueChangedEvent(_appSettings.Sensors.pinBUTTON.Value, PinEventTypes.Falling, (o, e) =>
                         {
                             if (isLEDAvailable)
@@ -157,8 +155,7 @@ namespace WeatherStation.Sensors.Services
                     dictionary.Add("HomePressure", Math.Round((double)(readResult.Pressure?.Hectopascals * 100), 0, MidpointRounding.AwayFromZero));
                     dictionary.Add("HomeHumidity", Math.Round((double)readResult.Humidity?.Percent, 0, MidpointRounding.AwayFromZero));
                 }else
-                {
-                    //var temp = Math.Round((Decimal)devOneWire.ReadTemperatureAsync().Result.DegreesCelsius, 2, MidpointRounding.AwayFromZero);
+                {                    
                     dictionary.Add("HomeTemperature", Math.Round((Decimal)devOneWire
                         .ReadTemperatureAsync().Result.DegreesCelsius,2, MidpointRounding.AwayFromZero));
                 }

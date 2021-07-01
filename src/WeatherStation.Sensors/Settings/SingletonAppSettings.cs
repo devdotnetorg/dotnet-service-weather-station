@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WeatherStation.Sensors.Settings
 {
+    /// <summary>
+    /// Singleton класса настройек прилложения
+    /// </summary>
     public class SingletonAppSettings
     {
         public AppSettings appSettings;

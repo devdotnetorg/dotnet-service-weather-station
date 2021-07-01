@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace WeatherStation.Sensors.Settings
@@ -9,6 +8,9 @@ namespace WeatherStation.Sensors.Settings
     /// </summary>
     public class AppSettings : IValidatableObject
     {
+        /// <summary>
+        /// Приложение должно быть остановленно.
+        /// </summary>
         public bool MustbeStopped => _MustbeStopped;
         private bool _MustbeStopped { get; set; }
         public SensorsSettings Sensors { get; set; }
