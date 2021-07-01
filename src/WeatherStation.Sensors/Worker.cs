@@ -29,21 +29,14 @@ namespace WeatherStation.Sensors
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-        {
-            try
-            {
-                _readSensorsServices.Init();
-            }
-            catch(Exception ex)
+        {            
+            if(!_readSensorsServices.Init())
             {
                 //Остановка приложения
-                _logger.LogError($"Инициализация датчиков завершилась с ошибкой: {ex.Message}", ex);
+                _logger.LogError("Инициализация датчиков не выполнена");
                 _logger.LogInformation("Сервис будет остановлен");
-
-                
-
-                Environment.Exit(-2);                    
-            }
+                Environment.Exit(-2);
+            }            
             while (!_sendData.IsOpen)
             {
                 _sendData.Connect();                

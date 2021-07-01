@@ -9,7 +9,7 @@ namespace WeatherStation.Sensors.Services
 {
     public interface IReadSensorsServices:IDisposable
     {
-        public void Init();
+        public bool Init();
         public IDictionary<string, object> ReadAll();
         public Task<Dictionary<string, object>> ReadAllAsync(CancellationToken stoppingToken);
         public event EventHandler ButtonChanged;

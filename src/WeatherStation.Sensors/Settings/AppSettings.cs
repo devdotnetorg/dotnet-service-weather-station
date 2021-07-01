@@ -9,7 +9,6 @@ namespace WeatherStation.Sensors.Settings
     /// </summary>
     public class AppSettings : IValidatableObject
     {
-        public bool MustbeStopped => _MustbeStopped;
         private bool _MustbeStopped { get; set; }
         public SensorsSettings Sensors { get; set; }
         public RabbitMQSettings RabbitMQ { get; set; }
@@ -24,17 +23,12 @@ namespace WeatherStation.Sensors.Settings
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             List<ValidationResult> errors = new List<ValidationResult>();
-            if (Sensors.ReadEvery == 0)
+            if (Sensors.ReadEvery ==0)
             {
                 errors.Add(new ValidationResult("Не указан параметр Sensors.ReadEvery. Задано " +
                     "значение по умолчанию = 20"));
                 Sensors.ReadEvery = 20;
-            }
-            if ((Sensors.I2CBusId is null || Sensors.BME280Address is null) && (Sensors.GPIOCHIP is null || Sensors.pinDS18B20 is null)) 
-            {
-                errors.Add(new ValidationResult("Не указан ни один датчик для чтения данных."));
-                _MustbeStopped = true;
-            }
+            }            
             if (string.IsNullOrWhiteSpace(RabbitMQ.ClientProvidedName))
             {
                 errors.Add(new ValidationResult("Не указан параметр RabbitMQ.ClientProvidedName. Задано " +

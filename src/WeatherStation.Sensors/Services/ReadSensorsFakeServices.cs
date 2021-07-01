@@ -57,9 +57,10 @@ namespace WeatherStation.Sensors.Services
             _logger.LogInformation("Sensors Dispose");
         }
 
-        public void Init()
+        public bool Init()
         {
             _logger.LogInformation("Sensors Init");
+            return true;
         }
     }
 }
