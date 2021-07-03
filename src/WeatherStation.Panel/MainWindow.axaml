@@ -1,0 +1,60 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="320" d:DesignHeight="240"
+        Width="320" Height="240"
+        x:Class="WeatherStation.Panel.MainWindow"
+        Title="WeatherStation.Panel">
+  <!--Welcome to Avalonia!-->  
+  <!--
+  <StackPanel>
+    <Button Width="160" Foreground="White" Background="Red">to Exit</Button>
+  </StackPanel>-->
+
+  <Grid Name="screen1" ShowGridLines="False"  IsVisible="True">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="50"></RowDefinition>
+      <RowDefinition Height="70"></RowDefinition>
+      <RowDefinition></RowDefinition>
+      <RowDefinition></RowDefinition>
+      <RowDefinition></RowDefinition>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition></ColumnDefinition>      
+    </Grid.ColumnDefinitions>
+    
+    <Grid Grid.Column="0" Grid.Row="0">
+      <Grid.RowDefinitions>
+        <RowDefinition></RowDefinition>        
+      </Grid.RowDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition MaxWidth="40"></ColumnDefinition>
+        <ColumnDefinition></ColumnDefinition>
+      </Grid.ColumnDefinitions>
+      <Ellipse x:Name="statusConnect" Width="30" Height="30" Fill="Red" Grid.Column="0" Grid.Row="0"/>
+      <Label FontWeight="Bold" FontSize="15" Margin="2" x:Name="labelCurrentDateTime" Grid.Column="1" Grid.Row="0">Время</Label>
+    </Grid>
+    <Label x:Name="sensorTemp" FontSize="55" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1">+30</Label>
+    <StackPanel Margin="4" Grid.Column="1" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <Image Source="/Images/humidity.png"/>
+      <Label FontSize="20" VerticalAlignment="Center">Влажность: </Label>
+      <Label x:Name="sensorHumidityrelative" FontSize="20" VerticalAlignment="Center">30%</Label>
+    </StackPanel>
+    <StackPanel Margin="4" Grid.Column="1" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <Image Source="/Images/pressure.png"/>
+      <Label FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">Давление: </Label>
+      <StackPanel Margin="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Label x:Name="sensorPressure1" FontSize="16" VerticalAlignment="Center">100,30 кПа</Label>
+        <Label x:Name="sensorPressure2" FontSize="16" VerticalAlignment="Center">730 мм. рт. ст.</Label>
+      </StackPanel>
+    </StackPanel>
+    <Label x:Name="HowOldData" Margin="2" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="0" Grid.Row="5">Данные получены 10 секунд назад</Label>  
+     
+  </Grid>
+  
+  
+  
+</Window>
+
+<!-- Windows WindowState="FullScreen" Width="320" Height="240" -->

@@ -123,8 +123,11 @@ namespace WeatherStation.Sensors.Services
 
         public void Close()
         {
-            _channel.Close();
-            _conn.Close();
+            if (IsOpen)
+            {
+                _channel.Close();
+                _conn.Close();
+            }            
             _channel = null;
             _conn = null;
             _logger.LogInformation("Соединение с сервером RabbitMQ закрыто");
