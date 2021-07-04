@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=app
+Exec=dotnet /app/WeatherStation.Panel.dll
+StartupNotify=false
+Terminal=false

@@ -31,4 +31,6 @@ RUN apk update \
 	&& apk del zip \
 	&& rm /artifacts.zip
 
+VOLUME ["/app/config"]
+
 ENTRYPOINT ["dotnet", "WeatherStation.Sensors.dll"]
