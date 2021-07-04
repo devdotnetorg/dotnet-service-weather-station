@@ -29,8 +29,9 @@ namespace WeatherStation.Sensors
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-        {            
-            if(!_readSensorsServices.Init())
+        {
+            _logger.LogInformation($"{DateTime.Now}: Запуск сервиса ...");
+            if (!_readSensorsServices.Init())
             {
                 //Остановка приложения
                 _logger.LogError("Инициализация датчиков не выполнена");
@@ -71,7 +72,7 @@ namespace WeatherStation.Sensors
             var obj = (ButtonEventArgs)e;
             try
             {
-                _sendData.Send("onButton", obj._Name);
+                _sendData.Send("Command", obj._Name);
             }
             catch (Exception ex)
             {

@@ -5,7 +5,15 @@ VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherStation.Sensors", "WeatherStation.Sensors\WeatherStation.Sensors.csproj", "{9B0619E4-4776-4E65-A935-E4E904F6A771}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherStation.Panel", "WeatherStation.Panel\WeatherStation.Panel.csproj", "{55AF6F4B-8C2E-4A7B-A3B2-294965496E04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherStation.Panel", "WeatherStation.Panel\WeatherStation.Panel.csproj", "{55AF6F4B-8C2E-4A7B-A3B2-294965496E04}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{A6E33962-ED63-4F2E-9842-11DE3E547599}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LiveChartsCore.SkiaSharpView", "Libs\skiasharp\LiveChartsCore.SkiaSharp\LiveChartsCore.SkiaSharpView.csproj", "{FB989755-E6B0-4CE4-8A75-A29E424EE506}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LiveChartsCore.SkiaSharpView.Avalonia", "Libs\skiasharp\LiveChartsCore.SkiaSharp.Avalonia\LiveChartsCore.SkiaSharpView.Avalonia.csproj", "{53A78DF1-ADD6-45EA-A187-872E923404A3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LiveChartsCore", "Libs\skiasharp\LiveChartsCore\LiveChartsCore.csproj", "{0B101B1D-81CF-4680-B279-F20CD65B7AB8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +29,26 @@ Global
 		{55AF6F4B-8C2E-4A7B-A3B2-294965496E04}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55AF6F4B-8C2E-4A7B-A3B2-294965496E04}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55AF6F4B-8C2E-4A7B-A3B2-294965496E04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB989755-E6B0-4CE4-8A75-A29E424EE506}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB989755-E6B0-4CE4-8A75-A29E424EE506}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB989755-E6B0-4CE4-8A75-A29E424EE506}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB989755-E6B0-4CE4-8A75-A29E424EE506}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53A78DF1-ADD6-45EA-A187-872E923404A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53A78DF1-ADD6-45EA-A187-872E923404A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53A78DF1-ADD6-45EA-A187-872E923404A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53A78DF1-ADD6-45EA-A187-872E923404A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B101B1D-81CF-4680-B279-F20CD65B7AB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B101B1D-81CF-4680-B279-F20CD65B7AB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B101B1D-81CF-4680-B279-F20CD65B7AB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B101B1D-81CF-4680-B279-F20CD65B7AB8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FB989755-E6B0-4CE4-8A75-A29E424EE506} = {A6E33962-ED63-4F2E-9842-11DE3E547599}
+		{53A78DF1-ADD6-45EA-A187-872E923404A3} = {A6E33962-ED63-4F2E-9842-11DE3E547599}
+		{0B101B1D-81CF-4680-B279-F20CD65B7AB8} = {A6E33962-ED63-4F2E-9842-11DE3E547599}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {033E0064-8122-4AC7-B6D3-2A92F5DD38E4}

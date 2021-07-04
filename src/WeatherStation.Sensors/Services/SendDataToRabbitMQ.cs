@@ -135,7 +135,7 @@ namespace WeatherStation.Sensors.Services
 
         public bool Send(IDictionary<string, object> message)
         {
-            if (!this._IsOpen)
+            if (!this._IsOpen||message is null)
             {
                 _logger.LogError("Показания датчиков не были отправленны на сервер RabbitMQ");
                 return false;

@@ -1,17 +1,14 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"                
+        xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"                
         mc:Ignorable="d" d:DesignWidth="320" d:DesignHeight="240"
         Width="320" Height="240"
         x:Class="WeatherStation.Panel.MainWindow"
         Title="WeatherStation.Panel">
   <!--Welcome to Avalonia!-->  
-  <!--
-  <StackPanel>
-    <Button Width="160" Foreground="White" Background="Red">to Exit</Button>
-  </StackPanel>-->
-
+  <Grid ShowGridLines="False"  IsVisible="True">
   <Grid Name="screen1" ShowGridLines="False"  IsVisible="True">
     <Grid.RowDefinitions>
       <RowDefinition Height="50"></RowDefinition>
@@ -49,12 +46,11 @@
         <Label x:Name="sensorPressure2" FontSize="16" VerticalAlignment="Center">730 мм. рт. ст.</Label>
       </StackPanel>
     </StackPanel>
-    <Label x:Name="HowOldData" Margin="2" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="0" Grid.Row="5">Данные получены 10 секунд назад</Label>  
-     
+    <Label x:Name="HowOldData" Margin="2" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="0" Grid.Row="5">Данные получены 10 секунд назад</Label>       
   </Grid>
-  
-  
-  
-</Window>
 
-<!-- Windows WindowState="FullScreen" Width="320" Height="240" -->
+  <Grid Name="screen2" ShowGridLines="True"  IsVisible="False">    
+    <lvc:CartesianChart x:Name="chart1"></lvc:CartesianChart>  
+</Grid>  
+  </Grid>
+</Window>

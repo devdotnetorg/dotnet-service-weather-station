@@ -150,7 +150,11 @@ namespace WeatherStation.Sensors.Services
                 if (bme280!=null)
                 {
                     //Read data
-                    var readResult = bme280.ReadAsync().Result;
+                    var TaskRead = bme280.ReadAsync();
+                    TaskRead.Wait(stoppingToken);
+                    if (stoppingToken.IsCancellationRequested) return null;                    
+                    //
+                    var readResult = TaskRead.Result;
                     dictionary.Add("HomeTemperature", Math.Round((double)readResult.Temperature?.DegreesCelsius, 2, MidpointRounding.AwayFromZero));
                     dictionary.Add("HomePressure", Math.Round((double)(readResult.Pressure?.Hectopascals * 100), 0, MidpointRounding.AwayFromZero));
                     dictionary.Add("HomeHumidity", Math.Round((double)readResult.Humidity?.Percent, 0, MidpointRounding.AwayFromZero));

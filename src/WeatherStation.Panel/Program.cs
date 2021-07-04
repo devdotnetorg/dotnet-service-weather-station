@@ -17,13 +17,7 @@ namespace WeatherStation.Panel
         // Avalonia configuration, don't remove; also used by visual designer.
         public static AppBuilder BuildAvaloniaApp()
             => AppBuilder.Configure<App>()
-                .UsePlatformDetect()
-                       
-                .LogToTrace();
-                //.UseX11();
-                //Add
-                //.With(new X11PlatformOptions { UseGpu=false} )            
-                //.With(new AvaloniaNativePlatformOptions { UseGpu = false })
-                //.With(new Win32PlatformOptions { UseDeferredRendering = false });            
+                .UsePlatformDetect()                       
+                .LogToTrace();                
     }
 }

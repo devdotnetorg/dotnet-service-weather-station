@@ -2,7 +2,6 @@
 using RabbitMQ.Client.Events;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,7 +18,7 @@ namespace WeatherStation.Panel.Services
         private IConnection _conn;
         private IModel _channel;
 
-        public event EventHandler DataReceived;//??????????????
+        public event EventHandler DataReceived;
         public event EventHandler ConnectionShutdown;
         public event EventHandler ConnectionOpen;
 
@@ -51,15 +50,8 @@ namespace WeatherStation.Panel.Services
                 CreateConnectionFactory();
                 //Connect
                 while (!_IsOpen)
-                {
-                    //try
-                   // {
-                        ConnectToRabbitMQ();
-                    //}
-                    //catch(Exception ex)
-                    //{
-
-                   // }                    
+                {                   
+                    ConnectToRabbitMQ();                 
                     if (!_IsOpen)
                     {
                         Console.WriteLine("Переподключение через 5 секунд.");
@@ -80,8 +72,7 @@ namespace WeatherStation.Panel.Services
             {                
                 _conn = _factory.CreateConnection();
                 _conn.ConnectionShutdown += Connection_ConnectionShutdown;
-                _channel = _conn.CreateModel();
-                //
+                _channel = _conn.CreateModel();                
                 _IsOpen = true;
                 //Срабатывание события
                 OnConnectionOpen();
@@ -96,10 +87,8 @@ namespace WeatherStation.Panel.Services
                     _channel.BasicAck(ea.DeliveryTag, false);
                 };
                 //Queue
-                string queueName = (string)_parameters["QueueName"];
-                //???
+                string queueName = (string)_parameters["QueueName"];                
                 _channel.BasicConsume(queue: queueName, autoAck: false, consumer: consumer);
-
             }
             catch (Exception ex)
             {
@@ -116,8 +105,7 @@ namespace WeatherStation.Panel.Services
                 VirtualHost = (string)_parameters["VirtualHost"],
                 HostName = (string)_parameters["HostName"],
                 ClientProvidedName = (string)_parameters["ClientProvidedName"],
-                AutomaticRecoveryEnabled = true,
-                //Heartbeat = 20 sec
+                AutomaticRecoveryEnabled = true,                
                 RequestedHeartbeat = TimeSpan.FromSeconds(20),
                 NetworkRecoveryInterval = TimeSpan.FromSeconds(5),
                 RequestedConnectionTimeout = TimeSpan.FromSeconds(50)

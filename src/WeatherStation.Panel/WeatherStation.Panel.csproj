@@ -16,6 +16,9 @@
     <ItemGroup>       
         <AvaloniaResource Include="Images\*" />
 	</ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\Libs\skiasharp\LiveChartsCore.SkiaSharp.Avalonia\LiveChartsCore.SkiaSharpView.Avalonia.csproj" />
+    </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\humidity.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

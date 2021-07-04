@@ -16,8 +16,7 @@ namespace WeatherStation.Panel.Settings
         /// Приложение должно быть остановленно.
         /// </summary>
         public bool MustbeStopped => _MustbeStopped;
-        private bool _MustbeStopped { get; set; }
-   
+        private bool _MustbeStopped { get; set; }   
         public RabbitMQSettings RabbitMQ { get; set; }
 
         public AppSettings()
@@ -25,7 +24,6 @@ namespace WeatherStation.Panel.Settings
             RabbitMQ = new RabbitMQSettings();
             _MustbeStopped = false;
         }
-
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             List<ValidationResult> errors = new List<ValidationResult>();             
