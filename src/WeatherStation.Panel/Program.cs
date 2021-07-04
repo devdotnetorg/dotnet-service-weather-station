@@ -18,6 +18,7 @@ namespace WeatherStation.Panel
         public static AppBuilder BuildAvaloniaApp()
             => AppBuilder.Configure<App>()
                 .UsePlatformDetect()
+                       
                 .LogToTrace();
                 //.UseX11();
                 //Add
