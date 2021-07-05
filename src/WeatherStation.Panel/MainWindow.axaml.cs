@@ -1,4 +1,4 @@
-using Avalonia;
+п»їusing Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
 using Avalonia.Markup.Xaml;
@@ -15,6 +15,7 @@ using System.Globalization;
 using System.IO;
 using System.Threading;
 using System.Timers;
+using WeatherStation.Panel.Helpers;
 using WeatherStation.Panel.Services;
 using WeatherStation.Panel.Settings;
 
@@ -23,37 +24,37 @@ namespace WeatherStation.Panel
     public partial class MainWindow : Window
     {
         /// <summary>
-        /// Таймер для отображения теущего времени
+        /// РўР°Р№РјРµСЂ РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ С‚РµСѓС‰РµРіРѕ РІСЂРµРјРµРЅРё
         /// </summary>
         private System.Timers.Timer timerCurrentTime;
         /// <summary>
-        /// Таймер для отображения времени устаревания полученных данных
+        /// РўР°Р№РјРµСЂ РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РІСЂРµРјРµРЅРё СѓСЃС‚Р°СЂРµРІР°РЅРёСЏ РїРѕР»СѓС‡РµРЅРЅС‹С… РґР°РЅРЅС‹С…
         /// </summary>
         private System.Timers.Timer timerLastGetData;
         private readonly object dtLastGetDataLock = new object();
         /// <summary>
-        /// Время фиксирования последних полученных данных
+        /// Р’СЂРµРјСЏ С„РёРєСЃРёСЂРѕРІР°РЅРёСЏ РїРѕСЃР»РµРґРЅРёС… РїРѕР»СѓС‡РµРЅРЅС‹С… РґР°РЅРЅС‹С…
         /// </summary>
         private DateTime dtLastGetData;
         /// <summary>
-        /// Получение данных от сервера
+        /// РџРѕР»СѓС‡РµРЅРёРµ РґР°РЅРЅС‹С… РѕС‚ СЃРµСЂРІРµСЂР°
         /// </summary>
         private IGetData _getData;        
         /// <summary>
-        /// Токен закрытия окна
+        /// РўРѕРєРµРЅ Р·Р°РєСЂС‹С‚РёСЏ РѕРєРЅР°
         /// </summary>
         private CancellationTokenSource sourceStoppingToken = new CancellationTokenSource();
         //Chart
         /// <summary>
-        /// Максимальное количество точек на графике
+        /// РњР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ С‚РѕС‡РµРє РЅР° РіСЂР°С„РёРєРµ
         /// </summary>
         private int maxCountValuesChart = 7;
         /// <summary>
-        /// Коллекция последних полученных значений температуры для графика
+        /// РљРѕР»Р»РµРєС†РёСЏ РїРѕСЃР»РµРґРЅРёС… РїРѕР»СѓС‡РµРЅРЅС‹С… Р·РЅР°С‡РµРЅРёР№ С‚РµРјРїРµСЂР°С‚СѓСЂС‹ РґР»СЏ РіСЂР°С„РёРєР°
         /// </summary>
         private ObservableCollection<double> _observableValues;        
         /// <summary>
-        /// Значения для оси X графика температуры
+        /// Р—РЅР°С‡РµРЅРёСЏ РґР»СЏ РѕСЃРё X РіСЂР°С„РёРєР° С‚РµРјРїРµСЂР°С‚СѓСЂС‹
         /// </summary>
         private List<string> _labelXAxes;        
         public MainWindow()
@@ -63,9 +64,12 @@ namespace WeatherStation.Panel
             this.AttachDevTools();
 #endif
             //Change Culture
-            CultureInfo culture = CultureInfo.GetCultureInfo("ru-RU");
-            Thread.CurrentThread.CurrentCulture = culture;
-            Thread.CurrentThread.CurrentUICulture = culture;
+            //Set Culture
+            var vCulture = CultureInfo.GetCultureInfo("ru-RU");
+            Thread.CurrentThread.CurrentCulture = vCulture;
+            Thread.CurrentThread.CurrentUICulture = vCulture;
+            CultureInfo.DefaultThreadCurrentCulture = vCulture;
+            CultureInfo.DefaultThreadCurrentUICulture = vCulture;
             //Add event Load
             this.Opened += OnOpened;
             this.Closed += OnClosed;
@@ -76,7 +80,7 @@ namespace WeatherStation.Panel
             AvaloniaXamlLoader.Load(this);
         }
         /// <summary>
-        /// Основная инициализация окна
+        /// РћСЃРЅРѕРІРЅР°СЏ РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РѕРєРЅР°
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -90,7 +94,7 @@ namespace WeatherStation.Panel
             SetStartValues();
             //Get config
             var appSettings = GetConfiguration();
-            //Timer текущего времени
+            //Timer С‚РµРєСѓС‰РµРіРѕ РІСЂРµРјРµРЅРё
             timerCurrentTime = new System.Timers.Timer(1000);
             timerCurrentTime.Elapsed += OnTimedEvent;
             timerCurrentTime.AutoReset = true;
@@ -142,7 +146,7 @@ namespace WeatherStation.Panel
             _getData.Close();
         }
         /// <summary>
-        /// Установлено соединение с сервером
+        /// РЈСЃС‚Р°РЅРѕРІР»РµРЅРѕ СЃРѕРµРґРёРЅРµРЅРёРµ СЃ СЃРµСЂРІРµСЂРѕРј
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -155,7 +159,7 @@ namespace WeatherStation.Panel
             }, DispatcherPriority.SystemIdle);
         }
         /// <summary>
-        /// Потеря соединения с сервером
+        /// РџРѕС‚РµСЂСЏ СЃРѕРµРґРёРЅРµРЅРёСЏ СЃ СЃРµСЂРІРµСЂРѕРј
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -168,7 +172,7 @@ namespace WeatherStation.Panel
             }, DispatcherPriority.SystemIdle);
         }
         /// <summary>
-        /// Получены данные от сервера
+        /// РџРѕР»СѓС‡РµРЅС‹ РґР°РЅРЅС‹Рµ РѕС‚ СЃРµСЂРІРµСЂР°
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -212,9 +216,9 @@ namespace WeatherStation.Panel
                 {
                     var pressure = (double)values._sensors["HomePressure"];
                     var labelsensorPressure1 = this.FindControl<Label>("sensorPressure1");
-                    labelsensorPressure1.Content = $"{Math.Round(pressure / (double)1000, 2)} кПа";
+                    labelsensorPressure1.Content = $"{Math.Round(pressure / (double)1000, 2)} РєРџР°";
                     var labelsensorPressure2 = this.FindControl<Label>("sensorPressure2");
-                    labelsensorPressure2.Content = $"{Math.Round(pressure / (133.32), 0, MidpointRounding.AwayFromZero)} мм.рт.ст.";
+                    labelsensorPressure2.Content = $"{Math.Round(pressure / (133.32), 0, MidpointRounding.AwayFromZero)} РјРј.СЂС‚.СЃС‚.";
                     isNewData = true;
                 }
                 //Command                
@@ -237,7 +241,7 @@ namespace WeatherStation.Panel
             }, DispatcherPriority.SystemIdle);
         }
         /// <summary>
-        /// Отображение текущего времени
+        /// РћС‚РѕР±СЂР°Р¶РµРЅРёРµ С‚РµРєСѓС‰РµРіРѕ РІСЂРµРјРµРЅРё
         /// </summary>
         /// <param name="source"></param>
         /// <param name="e"></param>
@@ -248,11 +252,11 @@ namespace WeatherStation.Panel
             {
                 var label = this.FindControl<Label>("labelCurrentDateTime");
                 label.Content = currentDateTime.ToString("dd MMMM yyyy, dddd") + "\n" +
-                currentDateTime.ToString("HH:mm");
+                currentDateTime.ToString("HH:mm:ss");
             }, DispatcherPriority.SystemIdle);
         }
         /// <summary>
-        /// Отображение времени устаревания полученных данных
+        /// РћС‚РѕР±СЂР°Р¶РµРЅРёРµ РІСЂРµРјРµРЅРё СѓСЃС‚Р°СЂРµРІР°РЅРёСЏ РїРѕР»СѓС‡РµРЅРЅС‹С… РґР°РЅРЅС‹С…
         /// </summary>
         /// <param name="source"></param>
         /// <param name="e"></param>
@@ -265,7 +269,7 @@ namespace WeatherStation.Panel
             }, DispatcherPriority.SystemIdle);
         }
         /// <summary>
-        /// Формирование строки для Label - отображение последних полученных данных
+        /// Р¤РѕСЂРјРёСЂРѕРІР°РЅРёРµ СЃС‚СЂРѕРєРё РґР»СЏ Label - РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ РїРѕСЃР»РµРґРЅРёС… РїРѕР»СѓС‡РµРЅРЅС‹С… РґР°РЅРЅС‹С…
         /// </summary>
         /// <returns></returns>
         private string GetLabelLastData()
@@ -275,20 +279,20 @@ namespace WeatherStation.Panel
             {
                 difference = DateTime.Now.Subtract(dtLastGetData);
             }
-            //(0-9)Данные получены недавно
-            //(10-59)Данные получены 10 секунд назад
-            //(60-inf)Данные получены более 1 минут(ы) назад
+            //(0-9)Р”Р°РЅРЅС‹Рµ РїРѕР»СѓС‡РµРЅС‹ РЅРµРґР°РІРЅРѕ
+            //(10-59)Р”Р°РЅРЅС‹Рµ РїРѕР»СѓС‡РµРЅС‹ 10 СЃРµРєСѓРЅРґ РЅР°Р·Р°Рґ
+            //(60-inf)Р”Р°РЅРЅС‹Рµ РїРѕР»СѓС‡РµРЅС‹ Р±РѕР»РµРµ 1 РјРёРЅСѓС‚(С‹) РЅР°Р·Р°Рґ
             string strResult;
             switch (difference.TotalSeconds)
             {
                 case < 11:
-                    strResult = "Данные получены недавно";
+                    strResult = "Р”Р°РЅРЅС‹Рµ РїРѕР»СѓС‡РµРЅС‹ РЅРµРґР°РІРЅРѕ";
                     break;
                 case < 60:
-                    strResult = $"Данные получены {Math.Truncate(difference.TotalSeconds / 10) * 10} секунд назад";
+                    strResult = $"Р”Р°РЅРЅС‹Рµ РїРѕР»СѓС‡РµРЅС‹ {Math.Truncate(difference.TotalSeconds / 10) * 10} СЃРµРєСѓРЅРґ РЅР°Р·Р°Рґ";
                     break;
                 default:
-                    strResult = $"Данные получены более {Math.Truncate(difference.TotalMinutes)} минут(ы) назад";
+                    strResult = $"Р”Р°РЅРЅС‹Рµ РїРѕР»СѓС‡РµРЅС‹ Р±РѕР»РµРµ {Math.Truncate(difference.TotalMinutes)} РјРёРЅСѓС‚(С‹) РЅР°Р·Р°Рґ";
                     break;
             }
             return strResult;
@@ -303,31 +307,33 @@ namespace WeatherStation.Panel
                 .AddEnvironmentVariables()
                 .Build();
             var appSettings = configuration.GetSection("AppSettings").Get<AppSettings>() ?? new AppSettings();
+            //Get EnvironmentVariables. Read settings for RabbitMQ
+            SettingsHelper.ReadSettingsforRabbitMQ(configuration, appSettings);
             return appSettings;
         }
         /// <summary>
-        /// Установление начальных значений для отображения
+        /// РЈСЃС‚Р°РЅРѕРІР»РµРЅРёРµ РЅР°С‡Р°Р»СЊРЅС‹С… Р·РЅР°С‡РµРЅРёР№ РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ
         /// </summary>
         private void SetStartValues()
         {
             var labelsensorTemp = this.FindControl<Label>("sensorTemp");
-            labelsensorTemp.Content = "Нет данных";
+            labelsensorTemp.Content = "РќРµС‚ РґР°РЅРЅС‹С…";
             var labelsensorHumidityrelative = this.FindControl<Label>("sensorHumidityrelative");
-            labelsensorHumidityrelative.Content = "Нет данных";
+            labelsensorHumidityrelative.Content = "РќРµС‚ РґР°РЅРЅС‹С…";
             var labelsensorPressure1 = this.FindControl<Label>("sensorPressure1");
-            labelsensorPressure1.Content = "Нет данных";
+            labelsensorPressure1.Content = "РќРµС‚ РґР°РЅРЅС‹С…";
             var labelsensorPressure2 = this.FindControl<Label>("sensorPressure2");
-            labelsensorPressure2.Content = "Нет данных";
+            labelsensorPressure2.Content = "РќРµС‚ РґР°РЅРЅС‹С…";
             var labelHowOldData = this.FindControl<Label>("HowOldData");
-            labelHowOldData.Content = "Нет данных";
+            labelHowOldData.Content = "РќРµС‚ РґР°РЅРЅС‹С…";
         }
         /// <summary>
-        /// Обработчик команд
+        /// РћР±СЂР°Р±РѕС‚С‡РёРє РєРѕРјР°РЅРґ
         /// </summary>
         /// <param name="strCommand"></param>
         private void CommandHandler(string strCommand)
         {
-            //Показ/скрытие экранов
+            //РџРѕРєР°Р·/СЃРєСЂС‹С‚РёРµ СЌРєСЂР°РЅРѕРІ
             if (strCommand == "PressButton1")
             {
                 var gridScreen1 = this.FindControl<Grid>("screen1");
@@ -338,3 +344,7 @@ namespace WeatherStation.Panel
         }
     }
 }
+
+
+
+

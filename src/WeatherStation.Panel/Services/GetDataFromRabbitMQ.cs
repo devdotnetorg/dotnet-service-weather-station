@@ -24,14 +24,15 @@ namespace WeatherStation.Panel.Services
 
         public void Close()
         {
-            if(IsOpen)
+            Console.WriteLine("Закрытие соединения с сервером RabbitMQ ...");
+            if (IsOpen)
             {
                 _channel.Close();
                 _conn.Close();
             }
-                _channel = null;
-                _conn = null;
-                Console.WriteLine("Соединение с сервером RabbitMQ закрыто");            
+            _channel = null;
+            _conn = null;
+            Console.WriteLine("Соединение с сервером RabbitMQ закрыто");            
         }
 
         public void Connect(IDictionary<string, object> parameters)
@@ -72,6 +73,7 @@ namespace WeatherStation.Panel.Services
             {                
                 _conn = _factory.CreateConnection();
                 _conn.ConnectionShutdown += Connection_ConnectionShutdown;
+                Console.WriteLine("Подключение к серверу RabbitMQ ...");
                 _channel = _conn.CreateModel();                
                 _IsOpen = true;
                 //Срабатывание события

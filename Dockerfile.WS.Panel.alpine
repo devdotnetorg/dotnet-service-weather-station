@@ -49,12 +49,26 @@ COPY copyables/app.desktop /root/.config/autostart/
 COPY copyables/xfce4-power-manager.xml /root/.config/xfce4/xfconf/xfce-perchannel-xml/
 
 #Add Link to dotnet
+НЕНУЖНА
 RUN ln -s /app/dotnet /bin/dotnet
 #
+
+Add
+https://quaded.com/docker-alpine-настроить-часовой-пояс-и-время/
+
+
+find -iname "*.i18n*"
+.i18n
+
+echo "export LANGUAGE=ru_RU.utf8
+export LANG=ru_RU.utf8
+export LC_ALL=ru_RU.utf8" > /root/.i18n
+
+&& rm -rf /tmp/* /var/cache/apk/*
 
 VOLUME ["/app/config"]
 
 #ENTRYPOINT ["dotnet", "WeatherStation.Panel.dll"]
 
-CMD ["startxfxe4"]
+CMD ["startx","-- -nocursor"]
 

@@ -24,4 +24,10 @@ docker buildx build --platform linux/arm64 -f Dockerfile.WS.Sensors.alpine -t de
 #:latest all platform
 docker buildx build --platform linux/arm64 -f Dockerfile.WS.Sensors.alpine -t devdotnetorg/dotnet-ws-sensors:latest . --push
 
+#Dockerfile.WS.Panel
+#:aarch64
+docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.alpine -t devdotnetorg/dotnet-ws-panel:aarch64 . --push
+#:latest all platform
+docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.alpine -t devdotnetorg/dotnet-ws-panel:latest . --push
+
 echo "BUILDX END"
