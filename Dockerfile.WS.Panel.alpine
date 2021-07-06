@@ -51,4 +51,4 @@ RUN apk update \
 
 VOLUME ["/app/config"]
 
-CMD ["startx"]
+CMD ["startx","--","-nocursor"]
