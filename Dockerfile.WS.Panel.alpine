@@ -1,7 +1,5 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-FROM devdotnetorg/libgpiod:1.6.3 AS sourcelibgpiod
-
 FROM mcr.microsoft.com/dotnet/runtime:5.0-alpine AS base
 WORKDIR /app
 
@@ -25,50 +23,32 @@ MAINTAINER DevDotNet.Org <anton@devdotnet.org>
 LABEL maintainer="DevDotNet.Org <anton@devdotnet.org>"
 WORKDIR /app
 COPY --from=publish /app/publish .
-# Get libgpiod
-COPY --from=sourcelibgpiod /artifacts.zip /
 
-# Add Libgpiod
-RUN apk update \
-	&& apk add --no-cache --upgrade zip \
-	&& unzip -o /artifacts.zip -d / \
-	&& apk del zip \
-	&& rm /artifacts.zip
-	
+###
+#Copy to image
+COPY copyables/ /
 #Setup xfce4
-RUN apk add --no-cache xorg-server xf86-video-fbdev xfce4 libc6-compat
-
-#Copy to image for xorg
-COPY copyables/99-fbdev.conf /usr/share/X11/xorg.conf.d/
-
-#Autostart
-RUN mkdir -p /root/.config/autostart/
-COPY copyables/app.desktop /root/.config/autostart/
-
-#Stop auto off screen
-COPY copyables/xfce4-power-manager.xml /root/.config/xfce4/xfconf/xfce-perchannel-xml/
-
-#Add Link to dotnet
-НЕНУЖНА
-RUN ln -s /app/dotnet /bin/dotnet
-#
-
-Add
-https://quaded.com/docker-alpine-настроить-часовой-пояс-и-время/
-
-
-find -iname "*.i18n*"
-.i18n
-
-echo "export LANGUAGE=ru_RU.utf8
-export LANG=ru_RU.utf8
-export LC_ALL=ru_RU.utf8" > /root/.i18n
-
-&& rm -rf /tmp/* /var/cache/apk/*
+RUN apk update \
+	&& apk add --no-cache --upgrade xorg-server xf86-video-fbdev xfce4 libc6-compat \
+#Move files
+	&& mv /99-fbdev.conf /usr/share/X11/xorg.conf.d/ \
+	&& mkdir -p /root/.config/autostart/ \
+	&& mv /app.desktop /root/.config/autostart/ \
+	&& mkdir -p /root/.config/xfce4/xfconf/xfce-perchannel-xml/ \
+	&& mv /xfce4-power-manager.xml /root/.config/xfce4/xfconf/xfce-perchannel-xml/ \
+#Setup data and locale
+	&& apk add --no-cache tzdata \
+	&& mv /.i18n /root/ \
+#Cleaning
+	&& rm -rf /var/lib/{cache,log}/ \
+	&& rm -rf /var/lib/apt/lists/*.lz4 \
+	&& rm -rf /var/log/* \
+	&& rm -rf /tmp/* /var/tmp/* \
+	&& rm -rf /usr/share/doc/ \
+	&& rm -rf /usr/share/man/ \
+	&& rm -rf /var/cache/apk/*
+###
 
 VOLUME ["/app/config"]
 
-#ENTRYPOINT ["dotnet", "WeatherStation.Panel.dll"]
-
-CMD ["startx","-- -nocursor"]
-
+CMD ["startx"]
