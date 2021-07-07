@@ -26,6 +26,8 @@ namespace WeatherStation.Panel
             CultureInfo.DefaultThreadCurrentCulture = vCulture;
             CultureInfo.DefaultThreadCurrentUICulture = vCulture;
             //
+			
+			
             BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
         }
         
