@@ -62,7 +62,7 @@ services:
     environment:
       - RabbitMQUserName=user-lcd
       - RabbitMQPassword=Fpwh353
-      - TZ="Europe/Moscow"
+      - TZ=Europe/Moscow
     volumes:
       - test-dotnet-ws-panel-config:/app/config
     depends_on:
