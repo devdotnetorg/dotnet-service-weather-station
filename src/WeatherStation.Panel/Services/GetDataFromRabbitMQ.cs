@@ -55,8 +55,8 @@ namespace WeatherStation.Panel.Services
                     ConnectToRabbitMQ();                 
                     if (!_IsOpen)
                     {
-                        Console.WriteLine("Переподключение через 5 секунд.");
-                        Task.Delay(5000, stoppingToken).Wait();
+                        Console.WriteLine("Переподключение через 10 секунд.");
+                        Task.Delay(10000, stoppingToken).Wait();
                     }
                     if (stoppingToken.IsCancellationRequested)
                     {
@@ -107,9 +107,10 @@ namespace WeatherStation.Panel.Services
                 VirtualHost = (string)_parameters["VirtualHost"],
                 HostName = (string)_parameters["HostName"],
                 ClientProvidedName = (string)_parameters["ClientProvidedName"],
-                AutomaticRecoveryEnabled = true,                
-                RequestedHeartbeat = TimeSpan.FromSeconds(20),
-                NetworkRecoveryInterval = TimeSpan.FromSeconds(5),
+                AutomaticRecoveryEnabled = true,
+                //
+                RequestedHeartbeat = TimeSpan.FromSeconds(30),
+                NetworkRecoveryInterval = TimeSpan.FromSeconds(15),
                 RequestedConnectionTimeout = TimeSpan.FromSeconds(50)
             };
         }
@@ -127,8 +128,8 @@ namespace WeatherStation.Panel.Services
                 ConnectToRabbitMQ();
                 if (!_IsOpen)
                 {
-                    Console.WriteLine("Переподключение через 5 секунд.");
-                    await Task.Delay(5000);
+                    Console.WriteLine("Переподключение через 10 секунд.");
+                    await Task.Delay(10000);
                 }
             }
         }

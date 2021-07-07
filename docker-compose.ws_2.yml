@@ -1,12 +1,12 @@
-version: '2.2'
+version: '3.5'
 
 services:
 # RabbitMQ
   rabbitmq-iot:
     container_name: rabbitmq-iot
     image: rabbitmq:alpine
-#    restart: always
-    hostname: rabbitmq-iot    
+    restart: always
+    hostname: rabbitmq-iot
     ports:
       - 5672:5672/tcp
       - 15672:15672/tcp
@@ -18,11 +18,10 @@ services:
         ipv4_address: 172.21.0.5
     healthcheck:
         test: rabbitmq-diagnostics -q ping
-        interval: 10 s
-        timeout: 10 s
-        retries: 10
-    cpus: 0.6
-    
+        interval: 30s
+        timeout: 30s
+        retries: 5
+        
 #WeatherStation.Sensors
   test-dotnet-ws-sensors:
     image: devdotnetorg/dotnet-ws-sensors:aarch64
@@ -42,11 +41,9 @@ services:
       mynetwork:
         ipv4_address: 172.21.0.6
     depends_on:
-      rabbitmq-iot:
-        condition: service_healthy
-    links:
-      - rabbitmq-iot
-    cpus: 0.2
+        - rabbitmq-iot
+    links: 
+        - rabbitmq-iot
                 
 #WeatherStation.Panel
   test-dotnet-ws-panel:
@@ -66,12 +63,10 @@ services:
     volumes:
       - test-dotnet-ws-panel-config:/app/config
     depends_on:
-      rabbitmq-iot:
-        condition: service_healthy
-    links:
-      - rabbitmq-iot
-    cpus: 0.8
-
+        - rabbitmq-iot
+    links: 
+        - rabbitmq-iot
+      
 volumes:
   rabbit-iot-config:
    name: rabbit-iot-config

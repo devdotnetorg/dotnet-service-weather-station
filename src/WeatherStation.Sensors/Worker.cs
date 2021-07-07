@@ -41,8 +41,8 @@ namespace WeatherStation.Sensors
             while (!_sendData.IsOpen)
             {
                 _sendData.Connect();                
-                if(!_sendData.IsOpen) _logger.LogInformation("Переподключение через 5 секунд.");
-                await Task.Delay(5000, stoppingToken);
+                if(!_sendData.IsOpen) _logger.LogInformation("Переподключение через 10 секунд.");
+                await Task.Delay(10000, stoppingToken);
                 if (stoppingToken.IsCancellationRequested) return;
             }
             int TaskDelay = _appSettings.Sensors.ReadEvery * 1000;
