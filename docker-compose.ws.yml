@@ -65,6 +65,7 @@ services:
       - TZ=Europe/Moscow
     volumes:
       - test-dotnet-ws-panel-config:/app/config
+#      - /etc/timezone:/etc/timezone:ro
     depends_on:
       rabbitmq-iot:
         condition: service_healthy

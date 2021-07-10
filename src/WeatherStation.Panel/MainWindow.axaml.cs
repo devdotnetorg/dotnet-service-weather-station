@@ -48,7 +48,7 @@ namespace WeatherStation.Panel
         /// <summary>
         /// Максимальное количество точек на графике
         /// </summary>
-        private int maxCountValuesChart = 7;
+        private int maxCountValuesChart = 5;
         /// <summary>
         /// Коллекция последних полученных значений температуры для графика
         /// </summary>
