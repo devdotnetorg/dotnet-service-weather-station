@@ -15,11 +15,12 @@ using System.Globalization;
 using System.IO;
 using System.Threading;
 using System.Timers;
-using WeatherStation.Panel.Helpers;
-using WeatherStation.Panel.Services;
-using WeatherStation.Panel.Settings;
+using WeatherStation.Panel.AvaloniaX11.Helpers;
+using WeatherStation.Panel.AvaloniaX11.Services;
+using WeatherStation.Panel.AvaloniaX11.Settings;
+using WWeatherStation.Panel.AvaloniaX11.Helpers;
 
-namespace WeatherStation.Panel
+namespace WeatherStation.Panel.AvaloniaX11
 {
     public partial class MainWindow : Window
     {

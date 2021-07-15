@@ -9,14 +9,14 @@ WORKDIR /Libs
 COPY /src/Libs/. .
 #
 WORKDIR /src
-COPY ["src/WeatherStation.Panel/WeatherStation.Panel.csproj", "."]
-RUN dotnet restore "./WeatherStation.Panel.csproj"
-COPY /src/WeatherStation.Panel/. .
+COPY ["src/WeatherStation.Panel.AvaloniaX11/WeatherStation.Panel.AvaloniaX11.csproj", "."]
+RUN dotnet restore "./WeatherStation.Panel.AvaloniaX11.csproj"
+COPY /src/WeatherStation.Panel.AvaloniaX11/. .
 WORKDIR "/src/."
-RUN dotnet build "WeatherStation.Panel.csproj" -c Release -o /app/build
+RUN dotnet build "WeatherStation.Panel.AvaloniaX11.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "WeatherStation.Panel.csproj" -c Release -o /app/publish
+RUN dotnet publish "WeatherStation.Panel.AvaloniaX11.csproj" -c Release -o /app/publish
 
 FROM base AS final
 MAINTAINER DevDotNet.Org <anton@devdotnet.org>

@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
 Name=app
-Exec=dotnet /app/WeatherStation.Panel.dll 7
+Exec=dotnet /app/WeatherStation.Panel.AvaloniaX11.dll 7
 StartupNotify=false
 Terminal=false

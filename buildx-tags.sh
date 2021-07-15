@@ -20,14 +20,17 @@ echo "Start BUILDX"
 
 #Dockerfile.WS.Sensors
 #:aarch64
+docker buildx build --platform linux/arm64 -f Dockerfile.WS.Sensors.alpine -t devdotnetorg/dotnet-ws-sensors:v1-aarch64 . --push
 docker buildx build --platform linux/arm64 -f Dockerfile.WS.Sensors.alpine -t devdotnetorg/dotnet-ws-sensors:aarch64 . --push
 #:latest all platform
 docker buildx build --platform linux/arm64 -f Dockerfile.WS.Sensors.alpine -t devdotnetorg/dotnet-ws-sensors:latest . --push
 
 #Dockerfile.WS.Panel
 #:aarch64
-docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.alpine -t devdotnetorg/dotnet-ws-panel:aarch64 . --push
+docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.AvaloniaX11.alpine -t devdotnetorg/dotnet-ws-panel:avaloniax11v1-aarch64 . --push
+docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.AvaloniaX11.alpine -t devdotnetorg/dotnet-ws-panel:avaloniax11-aarch64 . --push
+docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.AvaloniaX11.alpine -t devdotnetorg/dotnet-ws-panel:avaloniax11 . --push
 #:latest all platform
-docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.alpine -t devdotnetorg/dotnet-ws-panel:latest . --push
+docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.AvaloniaX11.alpine -t devdotnetorg/dotnet-ws-panel:latest . --push
 
 echo "BUILDX END"

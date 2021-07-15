@@ -25,7 +25,7 @@ services:
     
 #WeatherStation.Sensors
   test-dotnet-ws-sensors:
-    image: devdotnetorg/dotnet-ws-sensors:aarch64
+    image: devdotnetorg/dotnet-ws-sensors
     container_name: test-dotnet-ws-sensors
     restart: always
     devices:
@@ -50,7 +50,7 @@ services:
                 
 #WeatherStation.Panel
   test-dotnet-ws-panel:
-    image: devdotnetorg/dotnet-ws-panel:aarch64
+    image: devdotnetorg/dotnet-ws-panel:avaloniax11
     container_name: test-dotnet-ws-panel
     restart: always
     privileged: true

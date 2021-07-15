@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace WeatherStation.Panel.Settings
+namespace WeatherStation.Panel.AvaloniaX11.Settings
 {
     /// <summary>
     /// Настройки приложения.

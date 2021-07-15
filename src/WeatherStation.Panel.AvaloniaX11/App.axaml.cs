@@ -2,7 +2,7 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 
-namespace WeatherStation.Panel
+namespace WeatherStation.Panel.AvaloniaX11
 {
     public class App : Application
     {

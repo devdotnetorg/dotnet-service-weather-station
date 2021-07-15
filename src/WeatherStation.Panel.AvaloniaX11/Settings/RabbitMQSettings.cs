@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WeatherStation.Panel.Settings
+namespace WeatherStation.Panel.AvaloniaX11.Settings
 {
     /// <summary>
     /// Настройки для RabbitMQ сервера.

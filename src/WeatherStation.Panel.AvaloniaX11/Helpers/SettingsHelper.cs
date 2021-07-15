@@ -5,9 +5,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WeatherStation.Panel.Settings;
+using WeatherStation.Panel.AvaloniaX11.Settings;
 
-namespace WeatherStation.Panel.Helpers
+namespace WWeatherStation.Panel.AvaloniaX11.Helpers
 {
     public static class SettingsHelper
     {

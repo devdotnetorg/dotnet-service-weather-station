@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WeatherStation.Panel.Services
+namespace WeatherStation.Panel.AvaloniaX11.Services
 {
     public class SensorsEventArgs : EventArgs
     {

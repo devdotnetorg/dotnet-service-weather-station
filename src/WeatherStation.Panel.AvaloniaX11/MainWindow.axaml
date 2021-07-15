@@ -5,8 +5,8 @@
         xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"                
         mc:Ignorable="d" d:DesignWidth="320" d:DesignHeight="240"
         Width="320" Height="240"
-        x:Class="WeatherStation.Panel.MainWindow"
-        Title="WeatherStation.Panel">
+        x:Class="WeatherStation.Panel.AvaloniaX11.MainWindow"
+        Title="WeatherStation.Panel.AvaloniaX11">
   <!--Welcome to Avalonia!-->  
   <Grid ShowGridLines="False"  IsVisible="True">
   <Grid Name="screen1" ShowGridLines="False"  IsVisible="True">

@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherStation.Sensors", "WeatherStation.Sensors\WeatherStation.Sensors.csproj", "{9B0619E4-4776-4E65-A935-E4E904F6A771}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherStation.Panel", "WeatherStation.Panel\WeatherStation.Panel.csproj", "{55AF6F4B-8C2E-4A7B-A3B2-294965496E04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherStation.Panel.AvaloniaX11", "WeatherStation.Panel.AvaloniaX11\WeatherStation.Panel.AvaloniaX11.csproj", "{55AF6F4B-8C2E-4A7B-A3B2-294965496E04}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{A6E33962-ED63-4F2E-9842-11DE3E547599}"
 EndProject

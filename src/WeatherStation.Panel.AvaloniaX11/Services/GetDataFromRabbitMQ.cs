@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace WeatherStation.Panel.Services
+namespace WeatherStation.Panel.AvaloniaX11.Services
 {
     class GetDataFromRabbitMQ : IGetData
     {

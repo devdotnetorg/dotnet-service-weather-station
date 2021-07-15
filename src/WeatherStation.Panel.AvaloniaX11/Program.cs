@@ -3,7 +3,7 @@ using System;
 using System.Globalization;
 using System.Threading;
 
-namespace WeatherStation.Panel
+namespace WeatherStation.Panel.AvaloniaX11
 {
     class Program
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace WeatherStation.Panel.Services
+namespace WeatherStation.Panel.AvaloniaX11.Services
 {
     /// <summary>
     /// Получение значений датчиков от сервера.

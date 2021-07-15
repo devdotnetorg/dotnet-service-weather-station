@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WeatherStation.Panel.Helpers
+namespace WeatherStation.Panel.AvaloniaX11.Helpers
 {
     public static  class AppHelper
     {
