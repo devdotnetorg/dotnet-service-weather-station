@@ -1,5 +1,16 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
+#add splashscreen
+FROM alpine:3.13.5 as prep
+
+ARG SPLASHSCREEN_FILE=dotnet_320x240.png 
+
+RUN apk update && apk upgrade
+RUN apk add imagemagick
+COPY Splashscreens/$SPLASHSCREEN_FILE /
+RUN convert /$SPLASHSCREEN_FILE XBM:/splashscreen.xbm
+
+#
 FROM mcr.microsoft.com/dotnet/runtime:5.0-alpine AS base
 WORKDIR /app
 
@@ -30,15 +41,13 @@ COPY --from=publish /app/publish .
 ###
 #Copy to image
 COPY copyables/ /
-#Setup xfce4
+COPY --from=prep /splashscreen.xbm /
+#Setup xorg
 RUN apk update \
-	&& apk add --no-cache --upgrade xorg-server xf86-video-fbdev xfce4 libc6-compat \
+	&& apk add --no-cache --upgrade xorg-server xf86-video-fbdev libc6-compat xsetroot \
 #Move files
 	&& mv /99-fbdev.conf /usr/share/X11/xorg.conf.d/ \
-	&& mkdir -p /root/.config/autostart/ \
-	&& mv /app.desktop /root/.config/autostart/ \
-	&& mkdir -p /root/.config/xfce4/xfconf/xfce-perchannel-xml/ \
-	&& mv /xfce4-power-manager.xml /root/.config/xfce4/xfconf/xfce-perchannel-xml/ \
+	&& mv /.xinitrc /root/ \
 #Setup data and locale
 	&& apk add --no-cache tzdata \
 	&& mv /.i18n /root/ \
@@ -57,4 +66,4 @@ VOLUME ["/app/config"]
 
 ENTRYPOINT ["/entrypoint.sh"]
 
-CMD ["startx","--","-nocursor"]
+CMD ["startx"]

@@ -27,7 +27,7 @@ docker buildx build --platform linux/arm64 -f Dockerfile.WS.Sensors.alpine -t de
 
 #Dockerfile.WS.Panel
 #:aarch64
-docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.AvaloniaX11.alpine -t devdotnetorg/dotnet-ws-panel:avaloniax11v1-aarch64 . --push
+docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.AvaloniaX11.alpine -t devdotnetorg/dotnet-ws-panel:avaloniax11v2-aarch64 . --push
 docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.AvaloniaX11.alpine -t devdotnetorg/dotnet-ws-panel:avaloniax11-aarch64 . --push
 docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.AvaloniaX11.alpine -t devdotnetorg/dotnet-ws-panel:avaloniax11 . --push
 #:latest all platform
