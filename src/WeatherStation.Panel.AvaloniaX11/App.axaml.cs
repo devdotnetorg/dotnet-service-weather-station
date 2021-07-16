@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Avalonia.Platform;
 
 namespace WeatherStation.Panel.AvaloniaX11
 {
@@ -20,5 +21,15 @@ namespace WeatherStation.Panel.AvaloniaX11
 
             base.OnFrameworkInitializationCompleted();
         }
+        /*
+        /// <summary>
+        /// override RegisterServices register custom service
+        /// </summary>
+        public override void RegisterServices()
+        {
+            AvaloniaLocator.CurrentMutable.Bind<IFontManagerImpl>().ToConstant(new CustomFontManagerImpl());
+            base.RegisterServices();
+        }
+        */
     }
 }

@@ -86,7 +86,7 @@ namespace WeatherStation.Panel.AvaloniaX11
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void OnOpened(object sender, System.EventArgs e)
-        {
+        {            
             //Full Screen
 #if RELEASE
              var statusConnect = this.WindowState = WindowState.FullScreen;
@@ -187,7 +187,7 @@ namespace WeatherStation.Panel.AvaloniaX11
                 if (values._sensors.ContainsKey("HomeTemperature"))
                 {
                     var labelsensorTemp = this.FindControl<Label>("sensorTemp");
-                    var temp = (double)values._sensors["HomeTemperature"];
+                    var temp = (double)values._sensors["HomeTemperature"];                    
                     labelsensorTemp.Content = $"+{temp}\u00B0C";
                     isNewData = true;
                     //Add Chart                    

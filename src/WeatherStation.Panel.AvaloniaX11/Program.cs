@@ -12,13 +12,6 @@ namespace WeatherStation.Panel.AvaloniaX11
         // yet and stuff might break.
         public static void Main(string[] args)
         {
-            //pause
-            if(args.Length==1)
-            {
-                int intTime = Convert.ToInt32(args[0]);
-                Console.WriteLine($"Запуск программы через {intTime} секунд");
-                Thread.Sleep(intTime*1000);
-            }
             //Set Culture
             var vCulture = CultureInfo.GetCultureInfo("ru-RU");
             Thread.CurrentThread.CurrentCulture = vCulture;
@@ -26,8 +19,6 @@ namespace WeatherStation.Panel.AvaloniaX11
             CultureInfo.DefaultThreadCurrentCulture = vCulture;
             CultureInfo.DefaultThreadCurrentUICulture = vCulture;
             //
-			
-			
             BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
         }
         

@@ -50,7 +50,6 @@ RUN apk update \
 	&& mv /.xinitrc /root/ \
 #Setup data and locale
 	&& apk add --no-cache tzdata \
-	&& mv /.i18n /root/ \
 #Cleaning
 	&& rm -rf /var/lib/{cache,log}/ \
 	&& rm -rf /var/lib/apt/lists/*.lz4 \

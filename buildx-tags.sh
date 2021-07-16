@@ -25,12 +25,20 @@ docker buildx build --platform linux/arm64 -f Dockerfile.WS.Sensors.alpine -t de
 #:latest all platform
 docker buildx build --platform linux/arm64 -f Dockerfile.WS.Sensors.alpine -t devdotnetorg/dotnet-ws-sensors:latest . --push
 
-#Dockerfile.WS.Panel
+#Dockerfile.WS.Panel V1
 #:aarch64
-docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.AvaloniaX11.alpine -t devdotnetorg/dotnet-ws-panel:avaloniax11v2-aarch64 . --push
-docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.AvaloniaX11.alpine -t devdotnetorg/dotnet-ws-panel:avaloniax11-aarch64 . --push
-docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.AvaloniaX11.alpine -t devdotnetorg/dotnet-ws-panel:avaloniax11 . --push
+docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.AvaloniaX11WithXfce4.alpine -t devdotnetorg/dotnet-ws-panel:avaloniax11v1-aarch64 . --push
+docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.AvaloniaX11WithXfce4.alpine -t devdotnetorg/dotnet-ws-panel:avaloniax11-aarch64 . --push
+docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.AvaloniaX11WithXfce4.alpine -t devdotnetorg/dotnet-ws-panel:avaloniax11 . --push
 #:latest all platform
-docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.AvaloniaX11.alpine -t devdotnetorg/dotnet-ws-panel:latest . --push
+docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.AvaloniaX11WithXfce4.alpine -t devdotnetorg/dotnet-ws-panel:latest . --push
+
+#Dockerfile.WS.Panel V2
+#:aarch64
+#docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.AvaloniaX11.alpine -t devdotnetorg/dotnet-ws-panel:avaloniax11v2-aarch64 . --push
+#docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.AvaloniaX11.alpine -t devdotnetorg/dotnet-ws-panel:avaloniax11-aarch64 . --push
+#docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.AvaloniaX11.alpine -t devdotnetorg/dotnet-ws-panel:avaloniax11 . --push
+#:latest all platform
+#docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.AvaloniaX11.alpine -t devdotnetorg/dotnet-ws-panel:latest . --push
 
 echo "BUILDX END"
