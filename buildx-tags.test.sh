@@ -20,7 +20,7 @@ echo "Start BUILDX"
 
 #Dockerfile.WS.Sensors
 #Error
-docker buildx build --platform linux/arm -f Dockerfile.WS.Sensors.test.arm32.alpine -t devdotnetorg/dotnet-ws-sensors:armhf . --load
+#docker buildx build --platform linux/arm -f Dockerfile.WS.Sensors.test.arm32.alpine -t devdotnetorg/dotnet-ws-sensors:armhf . --load
 
 #Dockerfile.WS.Panel
 #Error
