@@ -33,7 +33,7 @@ services:
       - /dev/gpiochip1
     environment:
       - RabbitMQUserName=user-sensors
-      - RabbitMQPassword=Dprgwy43
+      - RabbitMQPassword=PASSWORD1
     volumes:
       - /sys/bus/w1/devices:/sys/bus/w1/devices
       - /sys/devices/w1_bus_master1:/sys/devices/w1_bus_master1
@@ -61,7 +61,7 @@ services:
         ipv4_address: 172.21.0.7
     environment:
       - RabbitMQUserName=user-lcd
-      - RabbitMQPassword=Fpwh353
+      - RabbitMQPassword=PASSWORD2
       - TZ=Europe/Moscow
     volumes:
       - test-dotnet-ws-panel-config:/app/config
