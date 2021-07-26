@@ -32,7 +32,7 @@ COPY --from=publish /app/publish .
 COPY copyables.xfce4/ /
 #Setup xfce4
 RUN apk update \
-	&& apk add --no-cache --upgrade xorg-server xf86-video-fbdev xfce4 libc6-compat \
+	&& apk add --no-cache --upgrade xorg-server xf86-video-fbdev xfce4 libc6-compat gcompat \
 #Move files
 	&& mv /99-fbdev.conf /usr/share/X11/xorg.conf.d/ \
 	&& mkdir -p /root/.config/autostart/ \
