@@ -42,10 +42,8 @@ docker buildx build --platform linux/arm64,linux/amd64 -f Dockerfile.WS.Panel.Av
 
 #Dockerfile.WS.Panel V2
 #:aarch64
-#docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.AvaloniaX11.alpine -t devdotnetorg/dotnet-ws-panel:avaloniax11v2-aarch64 . --push
-#docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.AvaloniaX11.alpine -t devdotnetorg/dotnet-ws-panel:avaloniax11-aarch64 . --push
-#docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.AvaloniaX11.alpine -t devdotnetorg/dotnet-ws-panel:avaloniax11 . --push
-#:latest all platform
-#docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.AvaloniaX11.alpine -t devdotnetorg/dotnet-ws-panel:latest . --push
+docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.AvaloniaX11.alpine -t devdotnetorg/dotnet-ws-panel:avaloniax11v2-aarch64 . --push
+#:amd64
+docker buildx build --platform linux/amd64 -f Dockerfile.WS.Panel.AvaloniaX11.alpine -t devdotnetorg/dotnet-ws-panel:avaloniax11v2-amd64 . --push
 
 echo "BUILDX END"

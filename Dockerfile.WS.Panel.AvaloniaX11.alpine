@@ -3,7 +3,7 @@
 #add splashscreen
 FROM alpine:3.13.5 as prep
 
-ARG SPLASHSCREEN_FILE=dotnet_320x240.png 
+ARG SPLASHSCREEN_FILE=dotnet_iot_320x240.png
 
 RUN apk update && apk upgrade
 RUN apk add imagemagick
@@ -44,7 +44,11 @@ COPY copyables/ /
 COPY --from=prep /splashscreen.xbm /
 #Setup xorg
 RUN apk update \
-	&& apk add --no-cache --upgrade xorg-server xf86-video-fbdev libc6-compat xsetroot \
+	&& apk --no-cache --upgrade add xorg-server xf86-video-fbdev libc6-compat gcompat xsetroot \
+#Fonts
+	&& apk --no-cache add msttcorefonts-installer fontconfig \
+	&& update-ms-fonts \
+	&& fc-cache -f \
 #Move files
 	&& mv /99-fbdev.conf /usr/share/X11/xorg.conf.d/ \
 	&& mv /.xinitrc /root/ \
