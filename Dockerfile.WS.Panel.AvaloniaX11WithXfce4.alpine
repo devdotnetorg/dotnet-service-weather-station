@@ -29,7 +29,7 @@ COPY --from=publish /app/publish .
 
 ###
 #Copy to image
-COPY copyables.xfce4/ /
+COPY copyables.avaxfce4/ /
 #Setup xfce4
 RUN apk update \
 	&& apk add --no-cache --upgrade xorg-server xf86-video-fbdev xfce4 libc6-compat gcompat \

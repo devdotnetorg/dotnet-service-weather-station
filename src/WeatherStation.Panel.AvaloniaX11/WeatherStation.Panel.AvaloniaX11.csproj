@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
@@ -14,20 +14,14 @@
     <PackageReference Include="RabbitMQ.Client" Version="6.2.2" />
    </ItemGroup>
    <ItemGroup>       
-        <AvaloniaResource Include="Images\*" />
-	</ItemGroup>
-   <ItemGroup>
-    <EmbeddedResource Include="Assets\Fonts\*.ttf" />    
-   </ItemGroup>
-   <ItemGroup>
-      <ProjectReference Include="..\Libs\skiasharp\LiveChartsCore.SkiaSharp.Avalonia\LiveChartsCore.SkiaSharpView.Avalonia.csproj" />
-    </ItemGroup>  
+        <AvaloniaResource Include="Assets\Images\*" />
+	</ItemGroup>   
   <ItemGroup>
     <None Update="config\appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>    
-  </ItemGroup>  
+  </ItemGroup>    
   <ItemGroup>
-    <Folder Include="Assets\Fonts\" />
+    <ProjectReference Include="..\Libs\skiasharp\LiveChartsCore.SkiaSharp.Avalonia\LiveChartsCore.SkiaSharpView.Avalonia.csproj" />
   </ItemGroup>
 </Project>

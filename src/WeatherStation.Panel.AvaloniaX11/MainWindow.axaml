@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"                
         xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"                
         mc:Ignorable="d" d:DesignWidth="320" d:DesignHeight="240"
-        Width="320" Height="240"
+        Width="320" Height="240"        
         x:Class="WeatherStation.Panel.AvaloniaX11.MainWindow"
         Title="WeatherStation.Panel.AvaloniaX11">
   <!--Welcome to Avalonia!-->  
@@ -34,12 +34,12 @@
     </Grid>
     <Label x:Name="sensorTemp" FontSize="55" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1">+30</Label>
     <StackPanel Margin="4" Grid.Column="1" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-      <Image Source="/Images/humidity.png"/>
+      <Image Source="/Assets/Images/humidity.png"/>
       <Label FontSize="20" VerticalAlignment="Center">Влажность: </Label>
       <Label x:Name="sensorHumidityrelative" FontSize="20" VerticalAlignment="Center">30%</Label>
     </StackPanel>
     <StackPanel Margin="4" Grid.Column="1" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-      <Image Source="/Images/pressure.png"/>
+      <Image Source="/Assets/Images/pressure.png"/>
       <Label FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">Давление: </Label>
       <StackPanel Margin="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Label x:Name="sensorPressure1" FontSize="16" VerticalAlignment="Center">100,30 кПа</Label>
@@ -49,7 +49,7 @@
     <Label x:Name="HowOldData" Margin="2" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="0" Grid.Row="5">Данные получены 10 секунд назад</Label>       
   </Grid>
 
-  <Grid Name="screen2" ShowGridLines="True"  IsVisible="False">    
+  <Grid Name="screen2" ShowGridLines="False"  IsVisible="False">    
     <lvc:CartesianChart x:Name="chart1"></lvc:CartesianChart>  
 </Grid>  
   </Grid>

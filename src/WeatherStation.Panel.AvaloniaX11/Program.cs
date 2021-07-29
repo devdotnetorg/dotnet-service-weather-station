@@ -36,12 +36,12 @@ namespace WeatherStation.Panel.AvaloniaX11
         public static void Main(string[] args)
         {
             //Set Culture
-            var vCulture = CultureInfo.GetCultureInfo("ru-RU");
+            var vCulture = CultureInfo.GetCultureInfo("ru-RU");            
             Thread.CurrentThread.CurrentCulture = vCulture;
             Thread.CurrentThread.CurrentUICulture = vCulture;
             CultureInfo.DefaultThreadCurrentCulture = vCulture;
             CultureInfo.DefaultThreadCurrentUICulture = vCulture;
-            //
+            //Start
             BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
         }
         
@@ -55,5 +55,3 @@ namespace WeatherStation.Panel.AvaloniaX11
                 .LogToTrace();                
     }
 }
-
-

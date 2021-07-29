@@ -86,14 +86,7 @@ namespace WeatherStation.Panel.AvaloniaX11
             InitializeComponent();
 #if DEBUG
             this.AttachDevTools();
-#endif
-            //Change Culture
-            //Set Culture
-            var vCulture = CultureInfo.GetCultureInfo("ru-RU");
-            Thread.CurrentThread.CurrentCulture = vCulture;
-            Thread.CurrentThread.CurrentUICulture = vCulture;
-            CultureInfo.DefaultThreadCurrentCulture = vCulture;
-            CultureInfo.DefaultThreadCurrentUICulture = vCulture;
+#endif  
             //Add event Load
             this.Opened += OnOpened;
             this.Closed += OnClosed;
@@ -109,11 +102,7 @@ namespace WeatherStation.Panel.AvaloniaX11
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void OnOpened(object sender, System.EventArgs e)
-        {            
-            //Full Screen
-#if RELEASE
-             var statusConnect = this.WindowState = WindowState.FullScreen;
-#endif
+        {             
             //Set values
             SetStartValues();
             //Get config

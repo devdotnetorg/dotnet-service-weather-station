@@ -40,7 +40,7 @@ COPY --from=publish /app/publish .
 
 ###
 #Copy to image
-COPY copyables/ /
+COPY copyables.avaxorg/ /
 COPY --from=prep /splashscreen.xbm /
 #Setup xorg
 RUN apk update \

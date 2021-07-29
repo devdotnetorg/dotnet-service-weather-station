@@ -11,11 +11,13 @@ export LC_ALL=ru_RU.utf8
 
 echo "Set timezone"
 
-if [ -e /etc/timezone ]; then
-	rm /etc/timezone  
+if [ ! -e /etc/localtime ]; then
+	cp /usr/share/zoneinfo/${TZ} /etc/localtime	
 fi
 
-echo ${TZ} >  /etc/timezone
+if [ ! -e /etc/timezone ]; then
+	echo ${TZ} >  /etc/timezone		
+fi
 
 echo "Run app"
 

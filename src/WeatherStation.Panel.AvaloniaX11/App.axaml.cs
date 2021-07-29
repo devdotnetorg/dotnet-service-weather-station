@@ -22,9 +22,9 @@
 // SOFTWARE.
 
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using Avalonia.Platform;
 
 namespace WeatherStation.Panel.AvaloniaX11
 {
@@ -40,19 +40,13 @@ namespace WeatherStation.Panel.AvaloniaX11
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 desktop.MainWindow = new MainWindow();
+                //Full Screen
+#if RELEASE                                
+                desktop.MainWindow.WindowState = WindowState.FullScreen;
+                desktop.MainWindow.Topmost = true;
+#endif
             }
-
             base.OnFrameworkInitializationCompleted();
-        }
-        /*
-        /// <summary>
-        /// override RegisterServices register custom service
-        /// </summary>
-        public override void RegisterServices()
-        {
-            AvaloniaLocator.CurrentMutable.Bind<IFontManagerImpl>().ToConstant(new CustomFontManagerImpl());
-            base.RegisterServices();
-        }
-        */
+        }        
     }
 }
