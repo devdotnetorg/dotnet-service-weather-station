@@ -18,36 +18,46 @@ set -e
 
 echo "Start BUILDX"
 
-#Dockerfile.WS.Sensors
-#:aarch64
+#WS.Sensors
+#:aarch64 Alpine 3.13
 docker buildx build --platform linux/arm64 -f Dockerfile.WS.Sensors.alpine -t devdotnetorg/dotnet-ws-sensors:v1-aarch64 . --push
+docker buildx build --platform linux/arm64 -f Dockerfile.WS.Sensors.alpine -t devdotnetorg/dotnet-ws-sensors:v1-alpine-aarch64 . --push
 docker buildx build --platform linux/arm64 -f Dockerfile.WS.Sensors.alpine -t devdotnetorg/dotnet-ws-sensors:aarch64 . --push
-#:amd64
+docker buildx build --platform linux/arm64 -f Dockerfile.WS.Sensors.alpine -t devdotnetorg/dotnet-ws-sensors:alpine-aarch64 . --push
+#:amd64 Alpine 3.13
 docker buildx build --platform linux/amd64 -f Dockerfile.WS.Sensors.alpine -t devdotnetorg/dotnet-ws-sensors:v1-amd64 . --push
+docker buildx build --platform linux/amd64 -f Dockerfile.WS.Sensors.alpine -t devdotnetorg/dotnet-ws-sensors:v1-alpine-amd64 . --push
 docker buildx build --platform linux/amd64 -f Dockerfile.WS.Sensors.alpine -t devdotnetorg/dotnet-ws-sensors:amd64 . --push
-#:latest all platform
+docker buildx build --platform linux/amd64 -f Dockerfile.WS.Sensors.alpine -t devdotnetorg/dotnet-ws-sensors:alpine-amd64 . --push
+#:latest all platform Alpine 3.13
 docker buildx build --platform linux/arm64,linux/amd64 -f Dockerfile.WS.Sensors.alpine -t devdotnetorg/dotnet-ws-sensors:v1 . --push
+docker buildx build --platform linux/arm64,linux/amd64 -f Dockerfile.WS.Sensors.alpine -t devdotnetorg/dotnet-ws-sensors:v1-alpine . --push
 docker buildx build --platform linux/arm64,linux/amd64 -f Dockerfile.WS.Sensors.alpine -t devdotnetorg/dotnet-ws-sensors:latest . --push
 
-#Dockerfile.WS.Panel V1
-#:aarch64
-docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.AvaloniaX11WithXfce4.alpine -t devdotnetorg/dotnet-ws-panel:avaloniax11v1-aarch64 . --push
-docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.AvaloniaX11WithXfce4.alpine -t devdotnetorg/dotnet-ws-panel:avaloniax11-aarch64 . --push
+#WS.Panel
+#Avalonia with Xfce4
+#for compatibility
 docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.AvaloniaX11WithXfce4.alpine -t devdotnetorg/dotnet-ws-panel:avaloniax11 . --push
-#:amd64
-docker buildx build --platform linux/amd64 -f Dockerfile.WS.Panel.AvaloniaX11WithXfce4.alpine -t devdotnetorg/dotnet-ws-panel:avaloniax11v1-amd64 . --push
-docker buildx build --platform linux/amd64 -f Dockerfile.WS.Panel.AvaloniaX11WithXfce4.alpine -t devdotnetorg/dotnet-ws-panel:avaloniax11-amd64 . --push
-docker buildx build --platform linux/arm64,linux/amd64 -f Dockerfile.WS.Panel.AvaloniaX11WithXfce4.alpine -t devdotnetorg/dotnet-ws-panel:avaloniax11 . --push
-#:latest all platform
-docker buildx build --platform linux/arm64,linux/amd64 -f Dockerfile.WS.Panel.AvaloniaX11WithXfce4.alpine -t devdotnetorg/dotnet-ws-panel:avaloniax11v1 . --push
+#:aarch64 Alpine 3.13
+docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.AvaloniaX11WithXfce4.alpine -t devdotnetorg/dotnet-ws-panel:avalonia-xfce4-alpine-aarch64 . --push
+docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.AvaloniaX11WithXfce4.alpine -t devdotnetorg/dotnet-ws-panel:avalonia-xfce4-aarch64 . --push
+docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.AvaloniaX11WithXfce4.alpine -t devdotnetorg/dotnet-ws-panel:aarch64 . --push
+#:amd64 Alpine 3.13
+docker buildx build --platform linux/amd64 -f Dockerfile.WS.Panel.AvaloniaX11WithXfce4.alpine -t devdotnetorg/dotnet-ws-panel:avalonia-xfce4-alpine-amd64 . --push
+docker buildx build --platform linux/amd64 -f Dockerfile.WS.Panel.AvaloniaX11WithXfce4.alpine -t devdotnetorg/dotnet-ws-panel:avalonia-xfce4-amd64 . --push
+docker buildx build --platform linux/amd64 -f Dockerfile.WS.Panel.AvaloniaX11WithXfce4.alpine -t devdotnetorg/dotnet-ws-panel:amd64 . --push
+#:latest all platform Alpine 3.13
+docker buildx build --platform linux/arm64,linux/amd64 -f Dockerfile.WS.Panel.AvaloniaX11WithXfce4.alpine -t devdotnetorg/dotnet-ws-panel:avalonia-xfce4 . --push
 docker buildx build --platform linux/arm64,linux/amd64 -f Dockerfile.WS.Panel.AvaloniaX11WithXfce4.alpine -t devdotnetorg/dotnet-ws-panel:latest . --push
 
-#Dockerfile.WS.Panel V2
-#:aarch64
-docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.AvaloniaX11.alpine -t devdotnetorg/dotnet-ws-panel:avaloniax11v2-aarch64 . --push
-#:amd64
-docker buildx build --platform linux/amd64 -f Dockerfile.WS.Panel.AvaloniaX11.alpine -t devdotnetorg/dotnet-ws-panel:avaloniax11v2-amd64 . --push
-#:latest all platform
-docker buildx build --platform linux/arm64,linux/amd64 -f Dockerfile.WS.Panel.AvaloniaX11.alpine -t devdotnetorg/dotnet-ws-panel:avaloniax11v2 . --push
-
+#WS.Panel
+#Avalonia only Xorg
+#:aarch64 Alpine 3.13
+docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.AvaloniaX11.alpine -t devdotnetorg/dotnet-ws-panel:avalonia-xorg-alpine-aarch64 . --push
+docker buildx build --platform linux/arm64 -f Dockerfile.WS.Panel.AvaloniaX11.alpine -t devdotnetorg/dotnet-ws-panel:avalonia-xorg-aarch64 . --push
+#:amd64 Alpine 3.13
+docker buildx build --platform linux/amd64 -f Dockerfile.WS.Panel.AvaloniaX11.alpine -t devdotnetorg/dotnet-ws-panel:avalonia-xorg-alpine-amd64 . --push
+docker buildx build --platform linux/amd64 -f Dockerfile.WS.Panel.AvaloniaX11.alpine -t devdotnetorg/dotnet-ws-panel:avalonia-xorg-amd64 . --push
+#:latest all platform Alpine 3.13
+docker buildx build --platform linux/arm64,linux/amd64 -f Dockerfile.WS.Panel.AvaloniaX11.alpine -t devdotnetorg/dotnet-ws-panel:avalonia-xorg . --push
 echo "BUILDX END"

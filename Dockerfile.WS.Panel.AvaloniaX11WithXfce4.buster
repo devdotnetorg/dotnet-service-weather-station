@@ -42,6 +42,12 @@ RUN apt-get update \
 #Setup data and locale
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tzdata \
 	&& dpkg-reconfigure --frontend noninteractive tzdata \	
+# Setup package 'dbus-x11' no installation candidate	
+	&& echo "deb http://httpredir.debian.org/debian buster main contrib non-free" > /etc/apt/sources.list \
+    && echo "deb http://httpredir.debian.org/debian buster-updates main contrib non-free" >> /etc/apt/sources.list \
+    && echo "deb http://security.debian.org/ buster/updates main contrib non-free" >> /etc/apt/sources.list \    
+    && apt-get update \    
+	&& apt-get install -y --no-install-recommends dbus-x11 \	
 #Cleaning
 	&& apt-get clean autoclean -y \
 	&& apt-get autoremove -y \
