@@ -1,20 +1,20 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-FROM devdotnetorg/libgpiod:1.6.3 AS sourcelibgpiod
+FROM devdotnetorg/libgpiod:1.6.3-focal AS sourcelibgpiod
 
-FROM mcr.microsoft.com/dotnet/runtime:5.0-alpine AS base
+FROM mcr.microsoft.com/dotnet/runtime:5.0-buster-slim AS base
 WORKDIR /app
 
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
 COPY ["src/WeatherStation.Sensors/WeatherStation.Sensors.csproj", "."]
-RUN dotnet restore "./WeatherStation.Sensors.csproj"
+RUN dotnet restore "./WeatherStation.Sensors.csproj" -r linux-arm
 COPY /src/WeatherStation.Sensors/. .
 WORKDIR "/src/."
-RUN dotnet build "WeatherStation.Sensors.csproj" -c Release -o /app/build
+RUN dotnet build "WeatherStation.Sensors.csproj" -c Release -o /app/build -r linux-arm
 
 FROM build AS publish
-RUN dotnet publish "WeatherStation.Sensors.csproj" -c Release -o /app/publish
+RUN dotnet publish "WeatherStation.Sensors.csproj" -c Release -o /app/publish -r linux-arm
 
 FROM base AS final
 MAINTAINER DevDotNet.Org <anton@devdotnet.org>
@@ -25,19 +25,19 @@ COPY --from=publish /app/publish .
 COPY --from=sourcelibgpiod /artifacts.zip /
 
 # Add Libgpiod
-RUN apk update \
-	&& apk add --no-cache --upgrade zip \
+RUN apt-get update \
+	&& apt-get install -y --no-install-recommends unzip \
 	&& unzip -o /artifacts.zip -d / \
-	&& apk del zip \
-	&& rm /artifacts.zip \
+	&& apt-get remove -y unzip \	
 #Cleaning
-	&& rm -rf /var/lib/{cache,log}/ \
-	&& rm -rf /var/lib/apt/lists/*.lz4 \
+	&& apt-get clean autoclean -y \
+	&& apt-get autoremove -y \
+	&& rm -rf /var/lib/{apt,dpkg,cache,log}/ \
 	&& rm -rf /var/log/* \
 	&& rm -rf /tmp/* /var/tmp/* \
 	&& rm -rf /usr/share/doc/ \
 	&& rm -rf /usr/share/man/ \
-	&& rm -rf /var/cache/apk/*
+	&& rm -rf /var/lib/apt/lists/*
 
 VOLUME ["/app/config"]
 

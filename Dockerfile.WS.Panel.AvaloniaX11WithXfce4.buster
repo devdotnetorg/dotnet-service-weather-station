@@ -1,0 +1,61 @@
+#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+FROM mcr.microsoft.com/dotnet/runtime:5.0-buster-slim AS base
+WORKDIR /app
+
+FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
+# Copy Libs
+WORKDIR /Libs
+COPY /src/Libs/. .
+#
+WORKDIR /src
+COPY ["src/WeatherStation.Panel.AvaloniaX11/WeatherStation.Panel.AvaloniaX11.csproj", "."]
+RUN dotnet restore "./WeatherStation.Panel.AvaloniaX11.csproj" -r linux-arm
+COPY /src/WeatherStation.Panel.AvaloniaX11/. .
+WORKDIR "/src/."
+RUN dotnet build "WeatherStation.Panel.AvaloniaX11.csproj" -c Release -o /app/build -r linux-arm
+
+FROM build AS publish
+RUN dotnet publish "WeatherStation.Panel.AvaloniaX11.csproj" -c Release -o /app/publish -r linux-arm
+
+FROM base AS final
+MAINTAINER DevDotNet.Org <anton@devdotnet.org>
+LABEL maintainer="DevDotNet.Org <anton@devdotnet.org>"
+
+ENV TZ=Europe/Moscow
+
+WORKDIR /app
+COPY --from=publish /app/publish .
+
+###
+#Copy to image
+COPY copyables.avaxfce4/ /
+#Setup xfce4
+RUN apt-get update \
+	&& apt-get install -y --no-install-recommends xserver-xorg-core xinit xserver-xorg-video-fbdev xfce4 libc6 \
+#Move files
+	&& mv /99-fbdev.conf /usr/share/X11/xorg.conf.d/ \
+	&& mkdir -p /root/.config/autostart/ \
+	&& mv /app.desktop /root/.config/autostart/ \
+	&& mkdir -p /root/.config/xfce4/xfconf/xfce-perchannel-xml/ \
+	&& mv /xfce4-power-manager.xml /root/.config/xfce4/xfconf/xfce-perchannel-xml/ \
+#Setup data and locale
+	&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tzdata \
+	&& dpkg-reconfigure --frontend noninteractive tzdata \	
+#Cleaning
+	&& apt-get clean autoclean -y \
+	&& apt-get autoremove -y \
+	&& rm -rf /var/lib/{apt,dpkg,cache,log}/ \
+	&& rm -rf /var/log/* \
+	&& rm -rf /tmp/* /var/tmp/* \
+	&& rm -rf /usr/share/doc/ \
+	&& rm -rf /usr/share/man/ \
+	&& rm -rf /var/lib/apt/lists/* \
+	&& chmod +x /entrypoint.sh
+###
+
+VOLUME ["/app/config"]
+
+ENTRYPOINT ["/entrypoint.sh"]
+
+CMD ["startx","--","-nocursor"]
