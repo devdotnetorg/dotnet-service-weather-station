@@ -50,7 +50,7 @@ services:
                 
 #WeatherStation.Panel
   test-dotnet-ws-panel:
-    image: devdotnetorg/dotnet-ws-panel:avaloniax11
+    image: devdotnetorg/dotnet-ws-panel:avalonia-xorg
     container_name: test-dotnet-ws-panel
     restart: always
     privileged: true
