@@ -44,7 +44,7 @@ COPY copyables.avaxorg/ /
 COPY --from=prep /splashscreen.xbm /
 #Setup xorg
 RUN apk update \
-	&& apk --no-cache --upgrade add xorg-server xf86-video-fbdev libc6-compat gcompat xsetroot \
+	&& apk --no-cache --upgrade add xorg-server xf86-video-fbdev libc6-compat gcompat xsetroot xrandr \
 #Fonts
 	&& apk --no-cache add msttcorefonts-installer fontconfig \
 	&& update-ms-fonts \
